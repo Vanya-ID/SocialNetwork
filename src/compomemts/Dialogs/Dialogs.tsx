@@ -20,18 +20,28 @@ const Message =(props:any) =>{
 };
 
 const Dialogs = () => {
+
+    let dialogItems =[
+        {id:1, name :" Dima"},
+        {id:2, name :" Андрей"},
+        {id:3, name :" Влад"},
+        {id:41, name :" Вика"}
+    ]
+    let messageItems =[
+        {id:1, message:" HI"},
+        {id:2, message :" Hello"},
+        {id:3, message :" Like"}
+    ]
+
     return (
         <div className={d.dialogs}>
             <div className={d.dialogsItems}>
-                <DialogItem name="Дима" id="1" />
-                <DialogItem name="Андрей" id="2" />
-                <DialogItem name="Влад" id="3" />
-                <DialogItem name="Вика" id="4" />
-            </div>
+                <DialogItem name={dialogItems[0].name} id={dialogItems[0].id} />
+                <DialogItem name={dialogItems[1].name} id={dialogItems[1].id} /></div>
             <div className={d.messages}>
-                <Message message="HI" />
-                <Message message="Hello" />
-                <Message message="Like" />
+                <Message message={messageItems[0].message }/>
+                <Message message={messageItems[1].message }/>
+
 
             </div>
         </div>
