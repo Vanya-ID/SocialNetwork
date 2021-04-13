@@ -1,13 +1,11 @@
 import React from "react";
 import p from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {postItems} from "../Profile";
 
 const MyPosts = () => {
 
-    let postItems = [
-        {likeCount: 12, message: 'Hello World'},
-        {likeCount: 12, message: 'Move Itd'}
-    ]
+let PostElements = postItems.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
 
     return (
         <div className={p.postBlovk}>
@@ -19,8 +17,7 @@ const MyPosts = () => {
                 </div>
 
             </div>
-            <Post likeCount={postItems[0].likeCount} message={postItems[0].message}/>
-            <Post likeCount={postItems[1].likeCount} message={postItems[1].message}/>
+            {PostElements}
         </div>
     )
 };
