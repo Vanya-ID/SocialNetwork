@@ -41,7 +41,6 @@ export type RootStateType ={
          dialogs:[
              {id: 1, name: " Dima"},
              {id: 2, name: " Андрей"},
-             {id: 3, name: " Влад"},
              {id: 41, name: " Вика"}
          ],
      }

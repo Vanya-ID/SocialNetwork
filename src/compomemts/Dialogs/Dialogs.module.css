@@ -1,19 +1,26 @@
-.dialogs{
-display: grid;
+.dialogs {
+    display: grid;
     grid-template-columns: 2fr 10fr;
 
 }
 
 
-.dialog{
-padding: 10px;
+.dialog {
+    padding: 10px;
 }
-.dialogElement{
+
+.dialogElement {
     color: #f9f9f9;
 }
-.messages{
+
+.messages {
 
 }
-.message{
-    padding: 10px;
+
+.message {
+    display: flex;
+    max-width: 500px;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 2px;
 }

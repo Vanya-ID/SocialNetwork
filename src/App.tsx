@@ -6,6 +6,7 @@ import Profile from "./compomemts/Profile/Profile";
 import Dialogs from "./compomemts/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {RootStateType} from "./redux/state";
+import Friends from './compomemts/Friends/Friends';
 
 type AppPropsType ={
     state: RootStateType

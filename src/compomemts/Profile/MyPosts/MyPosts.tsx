@@ -8,14 +8,24 @@ type MyPostsType = {
 }
 
 const MyPosts = (props: MyPostsType) => {
-let PostElements = props.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
+    let PostElements = props.posts.map(p => <Post message={p.message} likeCount={p.likeCount}/>)
+
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+
+    const addPost = () => {
+
+        let text = newPostElement.current?.value;
+        console.log(text)
+    }
     return (
         <div className={p.postBlovk}>
             <h3> my post</h3>
             <div>
-                <div><textarea></textarea></div>
                 <div>
-                    <button>Add Post</button>
+                    <textarea ref={newPostElement}></textarea>
+                </div>
+                <div>
+                    <button onClick={addPost}>Add Post</button>
                 </div>
 
             </div>
