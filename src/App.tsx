@@ -10,6 +10,7 @@ import Friends from './compomemts/Friends/Friends';
 
 type AppPropsType ={
     state: RootStateType
+    addPost: (post: string)=> void
 }
 
 const App = (props: AppPropsType) => {
@@ -26,6 +27,7 @@ const App = (props: AppPropsType) => {
                     <Route path='/profile'
                            render={() => <Profile
                                profilePage ={props.state.profilePage}
+                               addPost={props.addPost}
                            />}/>
                     <Route path='/news' component={Dialogs}/>
                     <Route path='/music' component={Dialogs}/>

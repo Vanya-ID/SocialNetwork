@@ -5,6 +5,7 @@ import {postItemsType} from "../../../redux/state";
 
 type MyPostsType = {
     posts: Array<postItemsType>
+    addPost: (post: string)=> void
 }
 
 const MyPosts = (props: MyPostsType) => {
@@ -15,7 +16,9 @@ const MyPosts = (props: MyPostsType) => {
     const addPost = () => {
 
         let text = newPostElement.current?.value;
-        console.log(text)
+        if (text){
+            props.addPost(text)
+        }
     }
     return (
         <div className={p.postBlovk}>

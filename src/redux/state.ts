@@ -1,5 +1,7 @@
+import {renderEntireTree} from "../renderEntireTree";
 
 export type postItemsType ={
+    id: number
     likeCount: number
     message: string
 }
@@ -28,8 +30,8 @@ export type RootStateType ={
    let  state :RootStateType = {
     profilePage : {
         posts : [
-            {likeCount: 12, message: 'Hello World'},
-            {likeCount: 12, message: 'Move Itd'}
+            {id:1,likeCount: 12, message: 'Hello World'},
+            {id:2, likeCount: 12, message: 'Move Itd'}
         ]
     },
      dialogsPage: {
@@ -44,6 +46,16 @@ export type RootStateType ={
              {id: 41, name: " Вика"}
          ],
      }
+}
+
+export let addPost =(postMessage:string)=>{
+    let newPost = {
+        id: 3,
+        message: postMessage,
+        likeCount: 0
+    };
+    state.profilePage.posts.push(newPost)
+    renderEntireTree(state);
 }
 
 export default state;
