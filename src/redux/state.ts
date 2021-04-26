@@ -50,17 +50,18 @@ let state: RootStateType = {
     }
 }
 
-export let addPost = (postMessage: string) => {
+export let addPost = () => {
     let newPost: postItemsType = {
         id: new Date().getTime(),
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likeCount: 0
     };
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = '';
     renderEntireTree(state);
 }
 export let updatePostText = (newText: string) => {
-    state.profilePage.newPostText =newText;
+    state.profilePage.newPostText = newText;
     renderEntireTree(state);
 }
 

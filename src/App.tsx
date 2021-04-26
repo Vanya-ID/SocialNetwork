@@ -8,10 +8,10 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {RootStateType} from "./redux/state";
 import Friends from './compomemts/Friends/Friends';
 
-type AppPropsType ={
+type AppPropsType = {
     state: RootStateType
-    addPost: (post: string)=> void
-    updatePostText : (newText: string)=> void
+    addPost: () => void
+    updatePostText: (newText: string) => void
 }
 
 const App = (props: AppPropsType) => {
@@ -23,11 +23,11 @@ const App = (props: AppPropsType) => {
                 <div className='app-wrapper-content '>
                     <Route path='/dialogs'
                            render={() => <Dialogs
-                               dialogsPage ={props.state.dialogsPage}
-                    />}/>
+                               dialogsPage={props.state.dialogsPage}
+                           />}/>
                     <Route path='/profile'
                            render={() => <Profile
-                               profilePage ={props.state.profilePage}
+                               profilePage={props.state.profilePage}
                                addPost={props.addPost}
                                updatePostText={props.updatePostText}
                            />}/>

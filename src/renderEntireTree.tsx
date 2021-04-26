@@ -11,7 +11,7 @@ export let renderEntireTree = (state: RootStateType) => {
             <App
                 state={state}
                 addPost={addPost}
-                updatePostText = {updatePostText}
+                updatePostText={updatePostText}
             />
         </React.StrictMode>,
         document.getElementById('root')

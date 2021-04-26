@@ -1,13 +1,13 @@
-import React from "react";
+import React,{KeyboardEvent} from "react";
 import p from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {postItemsType} from "../../../redux/state";
 
 type MyPostsType = {
     posts: Array<postItemsType>
-    addPost: (post: string) => void
+    addPost: () => void
     newPostText: string
-    updatePostText: (newText: string)=> void
+    updatePostText: (newText: string) => void
 }
 
 const MyPosts = (props: MyPostsType) => {
@@ -17,23 +17,27 @@ const MyPosts = (props: MyPostsType) => {
 
     const addPost = () => {
 
-        let text = newPostElement.current?.value;
-        props.addPost(text ? text : '----')
+        props.addPost()
     }
+const addPostOnEnter = (e:KeyboardEvent<HTMLTextAreaElement>)=> {
+    if (e.key==='Enter' && e.shiftKey ){
+        addPost()
+    }
+}
 
-    const onPostChange = ()=>{
+    const onPostChange = () => {
         let text = newPostElement.current?.value;
-        props.updatePostText(text? text: '')
+        props.updatePostText(text ? text : '')
     }
     return (
         <div className={p.postBlovk}>
             <h3> my post</h3>
             <div>
                 <div>
-                    <textarea onChange={onPostChange} value={props.newPostText} ref={newPostElement}/>
+                    <textarea onKeyPress={addPostOnEnter}  onChange={onPostChange} value={props.newPostText} ref={newPostElement}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button  onClick={addPost}>Add Post</button>
                 </div>
 
             </div>
