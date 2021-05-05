@@ -24,7 +24,26 @@ export type RootStateType = {
     dialogsPage: messagesPageType
 }
 
-let store = {
+export type StoreType = {
+    _state: RootStateType
+    _callSubscribe: () => void
+
+    getState: () => RootStateType
+    subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsTypes) => void
+}
+
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -46,29 +65,33 @@ let store = {
             ],
         }
     },
-    getState(){
-        return this._state;
-    },
     _callSubscribe() {
         console.log("Something benn change")
     },
-    addPost() {
-        let newPost: postItemsType = {
-            id: new Date().getTime(),
-            message: this._state.profilePage.newPostText,
-            likeCount: 0
-        };
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = '';
-        this._callSubscribe();
+
+    getState() {
+        return this._state;
     },
-    updatePostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscribe();
-    },
-    subscribe(observer: () => void) {
+    subscribe(observer) {
         this._callSubscribe = observer
+    },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: postItemsType = {
+                id: new Date().getTime(),
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            };
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = '';
+            this._callSubscribe();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscribe();
+        }
     }
+
 }
 export default store;
 
