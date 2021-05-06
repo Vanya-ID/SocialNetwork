@@ -6,7 +6,7 @@ import {ActionsTypes, profilePageType} from "../../redux/state";
 
 type ProfileType = {
     profilePage: profilePageType
-    dispatch: (action:ActionsTypes) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 const Profile = (props: ProfileType) => {

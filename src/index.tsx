@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from "./redux/state";
 
- let renderEntireTree = () => {
+let renderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <App

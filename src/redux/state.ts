@@ -18,6 +18,7 @@ export type profilePageType = {
 export type messagesPageType = {
     messages: Array<messageItemsType>
     dialogs: Array<dialogItemsType>
+    newMessageText: string
 }
 export type RootStateType = {
     profilePage: profilePageType
@@ -26,14 +27,17 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    _callSubscribe: () => void
+    _callSubscribe: (state?: any) => void
 
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostAC>
+export type ActionsTypes = ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostAC> |
+    ReturnType<typeof sendMessageAC> |
+    ReturnType<typeof updateMessageAC>
 
 let store: StoreType = {
     _state: {
@@ -55,6 +59,7 @@ let store: StoreType = {
                 {id: 2, name: " Андрей"},
                 {id: 41, name: " Вика"}
             ],
+            newMessageText: ''
         }
     },
     _callSubscribe() {
@@ -81,13 +86,24 @@ let store: StoreType = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscribe();
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newMessageText;
+            this._callSubscribe(this._state)
+        } else if (action.type === 'SEND-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.messages.push({
+                id: 6,
+                message: this._state.dialogsPage.newMessageText
+            })
+            this._state.dialogsPage.newMessageText = '';
+            this._callSubscribe(this._state)
         }
     }
 }
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
-
 export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
 
+export const sendMessageAC = () => ({type: 'SEND-NEW-MESSAGE-TEXT'} as const)
+export const updateMessageAC = (newMessageText: string) => ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessageText: newMessageText} as const)
 
 export default store;
 

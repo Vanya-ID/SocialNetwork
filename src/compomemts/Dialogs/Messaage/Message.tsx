@@ -7,16 +7,9 @@ type MessageType ={
 }
 
 const Message =(props:MessageType) =>{
-    let newMessageRef = React.createRef<HTMLTextAreaElement>()
-
-    const addMessage =( )=>{
-        console.log(newMessageRef.current?.value)
-    }
     return(
         <div className={d.message}>
             {props.message}
-            <textarea ref={newMessageRef}></textarea>
-            <button onClick={addMessage}>Add Message</button>
         </div>
     )
 };
