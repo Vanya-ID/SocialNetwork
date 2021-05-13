@@ -6,7 +6,8 @@ import {addPostAC, updateNewPostAC} from "../../../redux/profilePageReducer";
 
 type MyPostsType = {
     posts: Array<postItemsType>
-    dispatch: (action: ActionsTypes) => void
+    onPostChange: (title: string) => void
+    addPost: () => void
     newPostText: string
 }
 
@@ -16,7 +17,7 @@ const MyPosts = (props: MyPostsType) => {
     // let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
-        props.dispatch(addPostAC())
+        props.addPost()
     }
 
     const addPostOnEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -27,7 +28,7 @@ const MyPosts = (props: MyPostsType) => {
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
-        props.dispatch(updateNewPostAC(text))
+        props.onPostChange(text)
     }
 
     return (
@@ -35,7 +36,10 @@ const MyPosts = (props: MyPostsType) => {
             <h3> my post</h3>
             <div>
                 <div>
-                    <textarea onKeyPress={addPostOnEnter} onChange={onPostChange} value={props.newPostText}/>
+                    <textarea
+                        onKeyPress={addPostOnEnter}
+                        onChange={onPostChange}
+                        value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add Post</button>

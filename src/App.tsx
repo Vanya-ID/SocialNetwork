@@ -6,10 +6,11 @@ import Profile from "./compomemts/Profile/Profile";
 import Dialogs from "./compomemts/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {ActionsTypes} from "./redux/state";
-import {StoreType} from "./redux/redux-store";
+import {reduxStoreType} from "./redux/redux-store";
+import DialogsContainer from "./compomemts/Dialogs/DialogsContainer";
 
 type AppPropsType = {
-    state: StoreType
+    state: reduxStoreType
     dispatch: (action: ActionsTypes) => void
 }
 
@@ -22,7 +23,7 @@ const App = (props: AppPropsType) => {
                 <Navbar/>
                 <div className='app-wrapper-content '>
                     <Route path='/dialogs'
-                           render={() => <Dialogs
+                           render={() => <DialogsContainer
                                dialogsPage={props.state.dialogsPage}
                                dispatch={props.dispatch}
                            />}/>

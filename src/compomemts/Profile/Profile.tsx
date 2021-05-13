@@ -3,6 +3,7 @@ import p from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ActionsTypes, profilePageType} from "../../redux/state";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfileType = {
     profilePage: profilePageType
@@ -12,7 +13,7 @@ type ProfileType = {
 const Profile = (props: ProfileType) => {
     return <div>
         <ProfileInfo/>
-        <MyPosts
+        <MyPostsContainer
             posts={props.profilePage.posts}
             newPostText={props.profilePage.newPostText}
             dispatch={props.dispatch}

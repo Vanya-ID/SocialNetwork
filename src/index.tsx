@@ -4,9 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from "./redux/redux-store";
-import { StoreType} from "./redux/redux-store";
+import { reduxStoreType} from "./redux/redux-store";
 
-let renderEntireTree = (state: StoreType) => {
+let renderEntireTree = (state: reduxStoreType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App

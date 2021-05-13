@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 import d from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Messaage/Message';
@@ -7,12 +7,12 @@ import {updateMessageAC, sendMessageAC} from '../../redux/dialogsPageReducer';
 
 type DialogsType = {
     dialogsPage: messagesPageType
-    dispatch: (action: ActionsTypes) => void
+    sendMessageOmClick:()=> void
+    changeNewMessageText:(newText:string)=> void
 }
 
 
 const Dialogs = (props: DialogsType) => {
-    debugger
     let DialogElements = props.dialogsPage.dialogs.map((d, i) =>
         <DialogItem key={i} name={d.name} id={d.id}/>)
     let MessageElements = props.dialogsPage.messages.map((m, i) =>
@@ -20,10 +20,15 @@ const Dialogs = (props: DialogsType) => {
 
     const changeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = e.currentTarget.value
-        props.dispatch(updateMessageAC(newText))
+        props.changeNewMessageText(newText)
     }
     const sendMessageOmClick = () => {
-        props.dispatch(sendMessageAC())
+        props.sendMessageOmClick()
+    }
+    const sendMessageOmEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            sendMessageOmClick()
+        }
     }
 
     return (
@@ -35,9 +40,11 @@ const Dialogs = (props: DialogsType) => {
                 <div>{MessageElements}</div>
                 <div>
                     <div>
-                    <textarea value={props.dialogsPage.newMessageText}
-                              placeholder='Твой текст'
-                              onChange={changeNewMessageText}
+                    <textarea
+                        value={props.dialogsPage.newMessageText}
+                        placeholder='Твой текст'
+                        onChange={changeNewMessageText}
+                        onKeyPress={sendMessageOmEnter}
                     >
 
                 </textarea>
