@@ -10,13 +10,10 @@ type ProfileType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-const Profile = (props: ProfileType) => {
+const Profile = () => {
     return <div>
         <ProfileInfo/>
         <MyPostsContainer
-            posts={props.profilePage.posts}
-            newPostText={props.profilePage.newPostText}
-            dispatch={props.dispatch}
         />
     </div>
 }

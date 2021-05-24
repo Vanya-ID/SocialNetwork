@@ -2,28 +2,40 @@ import React, {KeyboardEvent, ChangeEvent} from "react";
 import {ActionsTypes, postItemsType} from "../../../redux/state";
 import {addPostAC, updateNewPostAC} from "../../../redux/profilePageReducer";
 import MyPosts from "./MyPosts";
+import {connect} from "react-redux";
+import {ReduxStoreType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
-type MyPostsTypeContainer = {
+type mapStateToPropsType = {
     posts: Array<postItemsType>
-    dispatch: (action: ActionsTypes) => void
     newPostText: string
 }
 
-const MyPostsContainer = (props: MyPostsTypeContainer) => {
-    const addPost = () => {
-        props.dispatch(addPostAC())
-    }
+type mapDispatchToPropsType = {
+    changePostBody: (text: string)=> void
+    addPost:( )=> void
+}
 
-    const onPostChange = (text: string) => {
-        props.dispatch(updateNewPostAC(text))
-    }
+export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-    return (
-        <MyPosts
-            newPostText={props.newPostText}
-            onPostChange={onPostChange}
-            addPost={addPost}
-            posts={props.posts}/>
-    )
-};
-export default MyPostsContainer;
+let mapStateToProps = (state: ReduxStoreType):mapStateToPropsType => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
+    }
+}
+let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+
+    return {
+        changePostBody: (text: string) => {
+            dispatch(updateNewPostAC(text))
+        },
+        addPost: () => {
+            dispatch(addPostAC())
+        }
+    }
+}
+
+const SuperMyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts)
+
+export default SuperMyPostsContainer;

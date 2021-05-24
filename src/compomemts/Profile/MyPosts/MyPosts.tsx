@@ -2,7 +2,7 @@ import React, {KeyboardEvent, ChangeEvent} from "react";
 import p from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {ActionsTypes, postItemsType} from "../../../redux/state";
-import {addPostAC, updateNewPostAC} from "../../../redux/profilePageReducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
 type MyPostsType = {
     posts: Array<postItemsType>
@@ -11,7 +11,7 @@ type MyPostsType = {
     newPostText: string
 }
 
-const MyPosts = (props: MyPostsType) => {
+const MyPosts = (props: MyPostsPropsType) => {
     let PostElements = props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
 
     // let newPostElement = React.createRef<HTMLTextAreaElement>()
@@ -28,7 +28,7 @@ const MyPosts = (props: MyPostsType) => {
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
-        props.onPostChange(text)
+        props.changePostBody(text)
     }
 
     return (

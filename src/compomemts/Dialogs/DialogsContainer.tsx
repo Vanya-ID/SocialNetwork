@@ -1,30 +1,37 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
-import {ActionsTypes, messagesPageType} from "../../redux/state";
+import {ActionsTypes, messagesPageType, postItemsType} from "../../redux/state";
 import {updateMessageAC, sendMessageAC} from '../../redux/dialogsPageReducer';
 import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
+import {ReduxStoreType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
-type DialogsType = {
+type mapStateToPropsType = {
     dialogsPage: messagesPageType
-    dispatch: (action: ActionsTypes) => void
+}
+
+type mapDispatchToPropsType = {
+    changeMessageBody: (text: string)=> void
+    sendMessageOmClick:( )=> void
 }
 
 
-const DialogsContainer = (props: DialogsType) => {
-
-    const changeNewMessageText = (newText:string) => {
-        props.dispatch(updateMessageAC(newText))
+let mapStateToProps = (state: ReduxStoreType):mapStateToPropsType => {
+    return {
+        dialogsPage: state.dialogsPage
     }
-    const sendMessageOmClick = () => {
-        props.dispatch(sendMessageAC())
+}
+let mapDispatchToProps = (dispatch: Dispatch):mapDispatchToPropsType => {
+    return {
+        changeMessageBody: (body: string) => {
+            dispatch(updateMessageAC(body))
+        },
+        sendMessageOmClick: () => {
+            dispatch(sendMessageAC())
+        }
     }
-
-    return (
-    <Dialogs
-        sendMessageOmClick={sendMessageOmClick}
-        dialogsPage={props.dialogsPage}
-        changeNewMessageText={changeNewMessageText}
-        />
-    )
 }
 
-export default DialogsContainer;
+const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+export default SuperDialogsContainer;

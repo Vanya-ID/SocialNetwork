@@ -20,7 +20,7 @@ let initialState = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (state: messagesPageType=initialState, action: ActionsTypes) => {
+export const dialogsReducer = (state: messagesPageType = initialState, action: ActionsTypes): messagesPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             state.newMessageText = action.newMessageText;

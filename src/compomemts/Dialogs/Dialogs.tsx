@@ -3,12 +3,10 @@ import d from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Messaage/Message';
 import {ActionsTypes, messagesPageType} from "../../redux/state";
-import {updateMessageAC, sendMessageAC} from '../../redux/dialogsPageReducer';
 
 type DialogsType = {
     dialogsPage: messagesPageType
     sendMessageOmClick:()=> void
-    changeNewMessageText:(newText:string)=> void
 }
 
 
@@ -20,14 +18,13 @@ const Dialogs = (props: DialogsType) => {
 
     const changeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = e.currentTarget.value
-        props.changeNewMessageText(newText)
     }
-    const sendMessageOmClick = () => {
+    const sendMessageOnClick = () => {
         props.sendMessageOmClick()
     }
     const sendMessageOmEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
-            sendMessageOmClick()
+            sendMessageOnClick()
         }
     }
 
@@ -50,7 +47,7 @@ const Dialogs = (props: DialogsType) => {
                 </textarea>
                     </div>
                     <div>
-                        <button onClick={sendMessageOmClick}>send</button>
+                        <button onClick={sendMessageOnClick}>send</button>
                     </div>
                 </div>
             </div>

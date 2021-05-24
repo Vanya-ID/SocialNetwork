@@ -11,7 +11,7 @@ let initialState = {
     newPostText: "it-kamasutra"
 }
 
-export const profileReducer = (state: profilePageType = initialState, action: ActionsTypes) => {
+export const profileReducer = (state: profilePageType = initialState, action: ActionsTypes): profilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             let newPost: postItemsType = {
