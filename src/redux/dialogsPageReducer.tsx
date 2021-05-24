@@ -33,5 +33,5 @@ export const dialogsReducer = (state: messagesPageType = initialState, action: A
             state.newMessageText = '';
             break;
     }
-    return state
+    return {...state}
 }

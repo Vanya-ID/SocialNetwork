@@ -11,22 +11,23 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-    changeMessageBody: (text: string)=> void
-    sendMessageOmClick:( )=> void
+    changeMessageBody: (text: string) => void
+    sendMessageOnClick: () => void
 }
 
+export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-let mapStateToProps = (state: ReduxStoreType):mapStateToPropsType => {
+let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch):mapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         changeMessageBody: (body: string) => {
             dispatch(updateMessageAC(body))
         },
-        sendMessageOmClick: () => {
+        sendMessageOnClick: () => {
             dispatch(sendMessageAC())
         }
     }

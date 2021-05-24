@@ -26,5 +26,5 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
             state.newPostText = action.newText;
             break;
     }
-    return state
+    return {...state}
 }

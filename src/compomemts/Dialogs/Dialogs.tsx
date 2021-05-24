@@ -3,14 +3,16 @@ import d from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Messaage/Message';
 import {ActionsTypes, messagesPageType} from "../../redux/state";
+import {DialogsPropsType} from "./DialogsContainer";
 
 type DialogsType = {
     dialogsPage: messagesPageType
     sendMessageOmClick:()=> void
+    changeNewMessageText:(newText:string)=> void
 }
 
 
-const Dialogs = (props: DialogsType) => {
+const Dialogs = (props: DialogsPropsType) => {
     let DialogElements = props.dialogsPage.dialogs.map((d, i) =>
         <DialogItem key={i} name={d.name} id={d.id}/>)
     let MessageElements = props.dialogsPage.messages.map((m, i) =>
@@ -18,9 +20,10 @@ const Dialogs = (props: DialogsType) => {
 
     const changeNewMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = e.currentTarget.value
+        props.changeMessageBody(newText)
     }
     const sendMessageOnClick = () => {
-        props.sendMessageOmClick()
+        props.sendMessageOnClick()
     }
     const sendMessageOmEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
