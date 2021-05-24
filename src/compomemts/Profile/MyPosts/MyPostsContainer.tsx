@@ -12,20 +12,19 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-    changePostBody: (text: string)=> void
-    addPost:( )=> void
+    changePostBody: (text: string) => void
+    addPost: () => void
 }
 
 export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-let mapStateToProps = (state: ReduxStoreType):mapStateToPropsType => {
+let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-
     return {
         changePostBody: (text: string) => {
             dispatch(updateNewPostAC(text))
@@ -36,6 +35,6 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-const SuperMyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts)
+const SuperMyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default SuperMyPostsContainer;

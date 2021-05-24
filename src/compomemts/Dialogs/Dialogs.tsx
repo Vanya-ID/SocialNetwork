@@ -7,8 +7,8 @@ import {DialogsPropsType} from "./DialogsContainer";
 
 type DialogsType = {
     dialogsPage: messagesPageType
-    sendMessageOmClick:()=> void
-    changeNewMessageText:(newText:string)=> void
+    sendMessageOmClick: () => void
+    changeNewMessageText: (newText: string) => void
 }
 
 
