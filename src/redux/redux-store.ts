@@ -1,10 +1,12 @@
 import {combineReducers, compose, createStore} from "redux";
 import {profileReducer} from "./profilePageReducer";
 import {dialogsReducer} from "./dialogsPageReducer";
+import {usersReducer} from "./UsersReducer";
 
 let rootReducer = combineReducers({
    profilePage: profileReducer,
-   dialogsPage: dialogsReducer
+   dialogsPage: dialogsReducer,
+   userPage: usersReducer
 })
 declare global {
    interface Window {
