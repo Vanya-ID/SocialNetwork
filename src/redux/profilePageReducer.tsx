@@ -12,6 +12,8 @@ let initialState = {
 }
 
 export const profileReducer = (state: profilePageType = initialState, action: ActionsTypes): profilePageType => {
+    let copyState= {...state, posts:  [...state.posts]}
+
     switch (action.type) {
         case 'ADD-POST': {
             let newPost: postItemsType = {
@@ -19,13 +21,11 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
                 message: state.newPostText,
                 likeCount: 0
             };
-            let copyState = {...state, posts: state.posts}
             copyState.posts.push(newPost)
             copyState.newPostText = '';
             return copyState;
         }
         case 'UPDATE-NEW-POST-TEXT':
-            let copyState= {...state, posts: state.posts}
             copyState.newPostText = action.newText;
             return copyState;
     }
