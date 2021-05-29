@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
-import Users from "./Users";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {followAC, setUsersAC, unfollowtAC, UserType} from "../../redux/UsersReducer";
 import {Dispatch} from "redux";
+import UsersClass from "./UsersClass";
 
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -38,4 +38,4 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersClass);

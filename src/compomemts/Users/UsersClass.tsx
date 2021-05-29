@@ -1,21 +1,23 @@
 import React from "react";
 import {UserPropsType} from "./UsersContainer";
 import axios from "axios";
+import {UserType} from "../../redux/UsersReducer";
 
-let Users = (props: UserPropsType) => {
-    const getUsers = () => {
-        if (props.users.length === 0) {
+class Users extends React.Component<UserPropsType> {
+    getUsers = () => {
+        if (this.props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users')
                 .then(response => {
-                    props.setUser(response.data.items);
+                    this.props.setUser(response.data.items);
                 });
         }
     }
-    return (
-        <div>
-            <button onClick={getUsers}>Get Users</button>
+
+    render() {
+        return <div>
+            <button onClick={this.getUsers}>Get Users</button>
             {
-                props.users.map(u => <div key={u.id}>
+                this.props.users.map((u: UserType) => <div key={u.id}>
                 <span>
                     <div>
                         <img style={{
@@ -28,13 +30,13 @@ let Users = (props: UserPropsType) => {
                     <div>
                         {u.followed ?
                             <button onClick={() => {
-                                props.unfollow(u.id)
+                                this.props.unfollow(u.id)
                             }}>
                                 UnFollow
                             </button>
                             :
                             <button onClick={() => {
-                                props.follow(u.id)
+                                this.props.follow(u.id)
                             }}>
                                 Follow
                             </button>
@@ -61,6 +63,8 @@ let Users = (props: UserPropsType) => {
                     </span>
                 </div>)
             }
-        </div>
-    )
+        </div>;
+    }
 }
+
+export default Users
