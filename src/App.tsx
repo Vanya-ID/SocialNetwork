@@ -3,12 +3,10 @@ import './App.css';
 import Header from "./compomemts/Header/Header";
 import Navbar from "./compomemts/Navbar/Navbar";
 import Profile from "./compomemts/Profile/Profile";
-import Dialogs from "./compomemts/Dialogs/Dialogs";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {ActionsTypes} from "./redux/state";
 import {ReduxStoreType} from "./redux/redux-store";
 import DialogsContainer from "./compomemts/Dialogs/DialogsContainer";
-import Users from "./compomemts/Users/Users";
 import UsersContainer from "./compomemts/Users/UsersContainer";
 
 type AppPropsType = {

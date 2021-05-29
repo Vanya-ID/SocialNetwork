@@ -4,18 +4,18 @@ import axios from "axios";
 import {UserType} from "../../redux/UsersReducer";
 
 class Users extends React.Component<UserPropsType> {
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    this.props.setUser(response.data.items);
-                });
-        }
+
+    constructor(props: any) {
+        super(props);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                this.props.setUser(response.data.items);
+            });
+
     }
 
     render() {
         return <div>
-            <button onClick={this.getUsers}>Get Users</button>
             {
                 this.props.users.map((u: UserType) => <div key={u.id}>
                 <span>
