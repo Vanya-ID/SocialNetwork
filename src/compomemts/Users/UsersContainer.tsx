@@ -2,15 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {
-    followAC,
+    follow,
     initialUsersType,
-    setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC, toggleIsFetchingAC,
-    unfollowtAC,
+    setCurrentPage,
+    setUsers,
+    setUsersTotalCount,
+    toggleIsFetching,
+    unfollow,
     UserType
 } from "../../redux/UsersReducer";
-import {Dispatch} from "redux";
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
@@ -18,9 +18,9 @@ import Preloader from "../common/preloader/Preloader";
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUser: (user: Array<UserType>) => void
+    setUsers: (user: Array<UserType>) => void
     setCurrentPage: (page: number) => void
-    setTotalCount: (totalCount: number) => void
+    setUsersTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }
 
@@ -35,18 +35,18 @@ class UsersAPIComponent extends React.Component<UserPropsType> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.toggleIsFetching(false)
-                this.props.setUser(response.data.items);
-                this.props.setTotalCount(response.data.totalCount)
+                this.props.setUsers(response.data.items);
+                this.props.setUsersTotalCount(response.data.totalCount)
             });
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users? page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.toggleIsFetching(false)
-                this.props.setUser(response.data.items);
+                this.props.setUsers(response.data.items);
             });
     }
 
@@ -79,6 +79,7 @@ let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
     }
 }
 
+/*
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         follow: (userId) => {
@@ -102,5 +103,13 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 
     }
 }
+*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setUsersTotalCount,
+    toggleIsFetching,
+})(UsersAPIComponent);

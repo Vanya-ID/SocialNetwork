@@ -1,11 +1,12 @@
 import {addPostAC, profileReducer, updateNewPostAC} from "./profilePageReducer";
 import {dialogsReducer, sendMessageAC, updateMessageAC} from "./dialogsPageReducer";
 import {
-    followAC,
-    setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC, toggleIsFetchingAC,
-    unfollowtAC
+    follow,
+    setCurrentPage,
+    setUsers,
+    setUsersTotalCount,
+    toggleIsFetching,
+    unfollow
 } from "./UsersReducer";
 
 export type postItemsType = {
@@ -48,12 +49,12 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof sendMessageAC> |
     ReturnType<typeof updateMessageAC> |
-    ReturnType<typeof followAC> |
-    ReturnType<typeof unfollowtAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setUsersTotalCountAC> |
-    ReturnType<typeof toggleIsFetchingAC>
+    ReturnType<typeof follow> |
+    ReturnType<typeof unfollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setUsersTotalCount> |
+    ReturnType<typeof toggleIsFetching>
 
 
 let
