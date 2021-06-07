@@ -1,27 +1,30 @@
 import React from "react";
 import {UserPropsType} from "./UsersContainer";
-import axios from "axios";
+import um from './users.module.css';
+import {UserType} from "../../redux/UsersReducer";
 
-let Users = (props: UserPropsType) => {
-    const getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    props.setUser(response.data.items);
-                });
-        }
+
+let Users = (props: any) => {
+
+    let pagesCount = Math.ceil(100 / props.pageSize)
+
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
+
     return (
         <div>
-            <button onClick={getUsers}>Get Users</button>
+            {pages.map(p => {
+                return <span className={props.currentPage === p ? um.selectedPage : um.page}
+                             onClick={() => (props.onPageChanged(p))}
+                >{p}</span>
+            })}
             {
-                props.users.map(u => <div key={u.id}>
+                props.users.map((u: UserType) => <div key={u.id}>
                 <span>
                     <div>
-                        <img style={{
-                            width: '150px',
-                            height: '150px'
-                        }} src={u.photos.small === null ?
+                        <img className={um.img} src={u.photos.small === null ?
                             'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png'
                             : u.photos.small} alt=""/>
                     </div>
@@ -64,3 +67,4 @@ let Users = (props: UserPropsType) => {
         </div>
     )
 }
+export default Users
