@@ -1,10 +1,18 @@
 import React from "react";
-import {UserPropsType} from "./UsersContainer";
 import um from './users.module.css';
 import {UserType} from "../../redux/UsersReducer";
 
+type UsersType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    onPageChanged: (pageNumber: number) => void
+    users: Array<UserType>
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+}
 
-let Users = (props: any) => {
+let Users = (props: UsersType) => {
 
     let pagesCount = Math.ceil(100 / props.pageSize)
 
