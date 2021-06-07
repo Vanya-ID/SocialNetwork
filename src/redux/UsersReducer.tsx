@@ -5,6 +5,7 @@ export const unfollowtAC = (userId: number) => ({type: 'UNFOLLOW', userId} as co
 export const setUsersAC = (users: Array<UserType>) => ({type: 'SET-USER', users} as const)
 export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setUsersTotalCountAC = (totalUsersCount: number) => ({type: 'SET-USERS-TOTAL-COUNT', totalUsersCount} as const)
+export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
 
 export  type UserType = {
     id: number
@@ -26,13 +27,15 @@ export type initialUsersType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 let initialState: initialUsersType = {
     users: [],
     pageSize: 5,
     totalUserCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 export const usersReducer = (state: initialUsersType = initialState, action: ActionsTypes) => {
@@ -48,6 +51,7 @@ export const usersReducer = (state: initialUsersType = initialState, action: Act
                     return u
                 })
             }
+
         case "UNFOLLOW":
             return {
                 ...state,
@@ -58,13 +62,20 @@ export const usersReducer = (state: initialUsersType = initialState, action: Act
                     return u
                 })
             }
+
         case "SET-USER": {
             return {...state, users: [ ...action.users]}
         }
+
         case 'SET-CURRENT-PAGE':
             return {...state, currentPage: action.currentPage}
+
         case 'SET-USERS-TOTAL-COUNT':
             return {...state, totalUserCount: action.totalUsersCount}
+
+        case 'TOGGLE-IS-FETCHING':
+            return {...state, isFetching: action.isFetching}
+
         default:
             return {...state}
     }

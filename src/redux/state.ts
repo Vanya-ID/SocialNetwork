@@ -4,7 +4,7 @@ import {
     followAC,
     setCurrentPageAC,
     setUsersAC,
-    setUsersTotalCountAC,
+    setUsersTotalCountAC, toggleIsFetchingAC,
     unfollowtAC
 } from "./UsersReducer";
 
@@ -52,51 +52,52 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof unfollowtAC> |
     ReturnType<typeof setUsersAC> |
     ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setUsersTotalCountAC>
+    ReturnType<typeof setUsersTotalCountAC> |
+    ReturnType<typeof toggleIsFetchingAC>
 
 
-
-let store: StoreType = {
-    _state: {
-        profilePage: {
-            posts: [
-                {id: 1, likeCount: 12, message: 'Hello World'},
-                {id: 2, likeCount: 12, message: 'Move Itd'}
-            ],
-            newPostText: "it-kamasutra"
+let
+    store: StoreType = {
+        _state: {
+            profilePage: {
+                posts: [
+                    {id: 1, likeCount: 12, message: 'Hello World'},
+                    {id: 2, likeCount: 12, message: 'Move Itd'}
+                ],
+                newPostText: "it-kamasutra"
+            },
+            dialogsPage: {
+                messages: [
+                    {id: 1, message: " HI"},
+                    {id: 2, message: " Hello"},
+                    {id: 3, message: " Like"}
+                ],
+                dialogs: [
+                    {id: 1, name: " Dima"},
+                    {id: 2, name: " Андрей"},
+                    {id: 41, name: " Вика"}
+                ],
+                newMessageText: ''
+            }
         },
-        dialogsPage: {
-            messages: [
-                {id: 1, message: " HI"},
-                {id: 2, message: " Hello"},
-                {id: 3, message: " Like"}
-            ],
-            dialogs: [
-                {id: 1, name: " Dima"},
-                {id: 2, name: " Андрей"},
-                {id: 41, name: " Вика"}
-            ],
-            newMessageText: ''
+        _callSubscribe() {
+            console.log("Something benn change")
+        },
+
+        getState() {
+            return this._state;
+        },
+        subscribe(observer) {
+            this._callSubscribe = observer
+        },
+
+        dispatch(action) {
+
+            this._state.profilePage = profileReducer(this._state.profilePage, action)
+            this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+
+            this._callSubscribe();
         }
-    },
-    _callSubscribe() {
-        console.log("Something benn change")
-    },
-
-    getState() {
-        return this._state;
-    },
-    subscribe(observer) {
-        this._callSubscribe = observer
-    },
-
-    dispatch(action) {
-
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-
-        this._callSubscribe();
     }
-}
 
 
