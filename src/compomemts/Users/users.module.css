@@ -1,0 +1,11 @@
+.img{
+    width: 100px;
+    height: 100px;
+}
+.selectedPage{
+    color: #1bf319;
+    cursor: pointer;
+}
+.page{
+    cursor: pointer;
+}
