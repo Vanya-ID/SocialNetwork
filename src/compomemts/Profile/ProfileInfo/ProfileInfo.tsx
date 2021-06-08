@@ -37,7 +37,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         </div>
         <div className={p.avatarBlock}>
             <img src={props.profile?.photos?.large} alt={'Logo'}/>
-            avatar + descr
+            {props.profile?.aboutMe}
         </div>
     </div>
 }
