@@ -2,13 +2,15 @@ import {ActionsTypes, postItemsType, profilePageType} from "./state";
 
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
 export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
+export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
 
 let initialState = {
     posts: [
         {id: 1, likeCount: 12, message: 'Hello World'},
         {id: 2, likeCount: 12, message: 'Move Itd'}
     ],
-    newPostText: "it-kamasutra"
+    newPostText: "it-kamasutra",
+    profile: {}
 }
 
 export const profileReducer = (state: profilePageType = initialState, action: ActionsTypes): profilePageType => {
@@ -31,6 +33,12 @@ export const profileReducer = (state: profilePageType = initialState, action: Ac
                 posts: [...state.posts],
                 newPostText: action.newText
             }
+
+        case 'SET-USER-PROFILE':
+        return {
+            ...state,
+profile: action.profile
+        }
     }
     return {...state}
 }

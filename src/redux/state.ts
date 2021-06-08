@@ -1,4 +1,4 @@
-import {addPostAC, profileReducer, updateNewPostAC} from "./profilePageReducer";
+import {addPostAC, profileReducer, setUserProfile, updateNewPostAC} from "./profilePageReducer";
 import {dialogsReducer, sendMessageAC, updateMessageAC} from "./dialogsPageReducer";
 import {
     follow,
@@ -25,6 +25,7 @@ type dialogItemsType = {
 export type profilePageType = {
     posts: Array<postItemsType>
     newPostText: string
+    profile: Object
 }
 export type messagesPageType = {
     messages: Array<messageItemsType>
@@ -54,7 +55,9 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setUsersTotalCount> |
-    ReturnType<typeof toggleIsFetching>
+    ReturnType<typeof toggleIsFetching> |
+    ReturnType<typeof setUserProfile>
+
 
 
 let
@@ -65,7 +68,8 @@ let
                     {id: 1, likeCount: 12, message: 'Hello World'},
                     {id: 2, likeCount: 12, message: 'Move Itd'}
                 ],
-                newPostText: "it-kamasutra"
+                newPostText: "it-kamasutra",
+                profile: {}
             },
             dialogsPage: {
                 messages: [

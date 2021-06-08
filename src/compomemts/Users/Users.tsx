@@ -1,6 +1,7 @@
 import React from "react";
 import um from './users.module.css';
 import {UserType} from "../../redux/UsersReducer";
+import {NavLink} from "react-router-dom";
 
 type UsersType = {
     follow: (userId: number) => void
@@ -32,9 +33,11 @@ let Users = (props: UsersType) => {
                 props.users.map((u: UserType) => <div key={u.id}>
                 <span>
                     <div>
+                        <NavLink to={'/profile/' + u.id}>
                         <img className={um.img} src={u.photos.small === null ?
                             'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png'
                             : u.photos.small} alt=""/>
+                            </NavLink>
                     </div>
                     <div>
                         {u.followed ?
