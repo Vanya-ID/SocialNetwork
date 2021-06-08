@@ -2,12 +2,30 @@ import React, {ReactNode} from "react";
 import p from './ProfileInfo.module.css';
 import Preloader from "../../common/preloader/Preloader";
 
-type ProfileInfoType = {
-    profile: any
+export type ProfileInfoType = {
+    aboutMe: string
+    contacts: {
+        facebook: string
+        github: string
+        instagram: string
+        vk: string
+    }
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    photos: {
+        large: string
+        small: string
+    }
+    userId: number
+}
+
+type ProfileInfoPropsType = {
+    profile: ProfileInfoType | null
 }
 
 
-const ProfileInfo = (props: ProfileInfoType) => {
+const ProfileInfo = (props: ProfileInfoPropsType) => {
 
     if (!props.profile) {
         return <Preloader/>

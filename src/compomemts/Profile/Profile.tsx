@@ -1,15 +1,13 @@
-import React, {ReactNode} from "react";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import React from "react";
+import ProfileInfo, {ProfileInfoType} from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-type ProfileType = {
-    children?: ReactNode
-    profile: any
+type ProfilePropsType = {
+    profile: ProfileInfoType | null
 }
 
-
-const Profile = (props: ProfileType) => {
+const Profile = (props: ProfilePropsType) => {
     return <div>
         <ProfileInfo profile={props.profile}/>
         <MyPostsContainer

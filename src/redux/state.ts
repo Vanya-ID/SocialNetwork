@@ -25,7 +25,7 @@ type dialogItemsType = {
 export type profilePageType = {
     posts: Array<postItemsType>
     newPostText: string
-    profile: Object
+    profile: null
 }
 export type messagesPageType = {
     messages: Array<messageItemsType>
@@ -60,6 +60,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
 
 
 
+/*
 let
     store: StoreType = {
         _state: {
@@ -69,7 +70,7 @@ let
                     {id: 2, likeCount: 12, message: 'Move Itd'}
                 ],
                 newPostText: "it-kamasutra",
-                profile: {}
+                profile: null
             },
             dialogsPage: {
                 messages: [
@@ -104,5 +105,6 @@ let
             this._callSubscribe();
         }
     }
+*/
 
 
