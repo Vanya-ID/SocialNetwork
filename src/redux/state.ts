@@ -8,6 +8,7 @@ import {
     toggleIsFetching,
     unfollow
 } from "./UsersReducer";
+import {setAuthUserData} from "./authReducer";
 
 export type postItemsType = {
     id: number
@@ -56,8 +57,8 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setUsersTotalCount> |
     ReturnType<typeof toggleIsFetching> |
-    ReturnType<typeof setUserProfile>
-
+    ReturnType<typeof setUserProfile> |
+    ReturnType<typeof setAuthUserData>
 
 
 /*

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from "./compomemts/Header/Header";
 import Navbar from "./compomemts/Navbar/Navbar";
 import {ActionsTypes} from "./redux/state";
 import {ReduxStoreType} from "./redux/redux-store";
@@ -8,6 +7,7 @@ import DialogsContainer from "./compomemts/Dialogs/DialogsContainer";
 import UsersContainer from "./compomemts/Users/UsersContainer";
 import {BrowserRouter,Route} from "react-router-dom";
 import ProfileContainer from "./compomemts/Profile/ProfileContainer";
+import HeaderContainer from "./compomemts/Header/HeaderContainer";
 
 type AppPropsType = {
     state: ReduxStoreType
@@ -18,7 +18,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content '>
                     <Route path='/dialogs'
