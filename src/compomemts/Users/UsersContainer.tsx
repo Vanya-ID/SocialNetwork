@@ -6,12 +6,11 @@ import {
     initialUsersType,
     setCurrentPage,
     setUsers,
-    setUsersTotalCount,
+    setUsersTotalCount, toggleFollowingInProgress,
     toggleIsFetching,
     unfollow,
     UserType
 } from "../../redux/UsersReducer";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
 import {usersAPI} from "../../api/api";
@@ -23,6 +22,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (page: number) => void
     setUsersTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingInProgress: (isFollowingInProgress: boolean, userId: number) => void
 }
 
 type mapStateToPropsType = initialUsersType
@@ -61,6 +61,8 @@ class UsersAPIComponent extends React.Component<UserPropsType> {
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                     onPageChanged={this.onPageChanged}
+                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />}
 
         </>
@@ -74,35 +76,10 @@ let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
         pageSize: state.userPage.pageSize,
         totalUserCount: state.userPage.totalUserCount,
         currentPage: state.userPage.currentPage,
-        isFetching: state.userPage.isFetching
+        isFetching: state.userPage.isFetching,
+        followingInProgress: state.userPage.followingInProgress
     }
 }
-
-/*
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowtAC(userId))
-        },
-        setUser: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (page: number) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        setTotalCount: (totalCount: number) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        },
-
-    }
-}
-*/
 
 export default connect(mapStateToProps, {
     follow,
@@ -111,4 +88,5 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setUsersTotalCount,
     toggleIsFetching,
+    toggleFollowingInProgress
 })(UsersAPIComponent);
