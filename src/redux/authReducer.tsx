@@ -1,4 +1,7 @@
 import {ActionsTypes} from "./state";
+import {Dispatch} from "redux";
+import axios from "axios";
+import {usersAPI} from "../api/api";
 
 export const setAuthUserData = (userId: number,
                                 email: string | null,
@@ -31,5 +34,17 @@ export const authReducer = (state: initialUsersType = initialState, action: Acti
             }
         default:
             return {...state}
+    }
+}
+
+export const getAuthMe = () => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getAuthMe()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {id, login, email} = data.data
+                    dispatch(setAuthUserData(id, email, login))
+                }
+            });
     }
 }

@@ -1,5 +1,8 @@
 import {ActionsTypes, postItemsType} from "./state";
 import {ProfileInfoType} from "../compomemts/Profile/ProfileInfo/ProfileInfo";
+import {Dispatch} from "redux";
+import axios from "axios";
+import {usersAPI} from "../api/api";
 
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
 export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
@@ -48,4 +51,16 @@ export const profileReducer = (state = initialState, action: ActionsTypes): init
             }
     }
     return {...state}
+}
+
+export const getUserProfile = (userId: string | undefined) => {
+    return (dispatch: Dispatch) => {
+        if (!userId) {
+            userId = '2'
+        }
+        usersAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            });
+    }
 }
