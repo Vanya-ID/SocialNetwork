@@ -4,6 +4,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from './Messaage/Message';
 import {ActionsTypes, messagesPageType} from "../../redux/state";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router";
 
 type DialogsType = {
     dialogsPage: messagesPageType
@@ -30,6 +31,8 @@ const Dialogs = (props: DialogsPropsType) => {
             sendMessageOnClick()
         }
     }
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={d.dialogs}>

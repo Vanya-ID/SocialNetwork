@@ -1,6 +1,5 @@
 import {ActionsTypes} from "./state";
 import {Dispatch} from "redux";
-import axios from "axios";
 import {usersAPI} from "../api/api";
 
 export const setAuthUserData = (userId: number,

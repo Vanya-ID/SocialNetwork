@@ -8,6 +8,7 @@ import UsersContainer from "./compomemts/Users/UsersContainer";
 import {BrowserRouter,Route} from "react-router-dom";
 import ProfileContainer from "./compomemts/Profile/ProfileContainer";
 import HeaderContainer from "./compomemts/Header/HeaderContainer";
+import Login from "./compomemts/Login/Login";
 
 type AppPropsType = {
     state: ReduxStoreType
@@ -29,6 +30,9 @@ const App = () => {
                            />}/>
                     <Route path='/users'
                            render={() => <UsersContainer
+                           />}/>
+                    <Route path='/login'
+                           render={() => <Login
                            />}/>
                 </div>
             </div>

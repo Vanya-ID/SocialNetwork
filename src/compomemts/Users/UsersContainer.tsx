@@ -6,14 +6,13 @@ import {
     initialUsersType,
     setCurrentPage,
     setUsers,
-    setUsersTotalCount, toggleFollowingInProgress,
+    setUsersTotalCount,
     toggleIsFetching,
     unfollow,
     UserType
 } from "../../redux/UsersReducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
