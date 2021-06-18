@@ -1,7 +1,9 @@
 import {ActionsTypes} from "./state";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
-export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
-export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
+export const followSuccess = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unfollowSuccess = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
 export const setUsers = (users: Array<UserType>) => ({type: 'SET-USER', users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setUsersTotalCount = (totalUsersCount: number) => ({
@@ -96,5 +98,39 @@ export const usersReducer = (state: initialUsersType = initialState, action: Act
 
         default:
             return {...state}
+    }
+}
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items));
+            dispatch(setUsersTotalCount(data.totalCount))
+        });
+    }
+}
+export const follow = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, id))
+        usersAPI.follow(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toggleFollowingInProgress(false, id))
+                dispatch(followSuccess(id))
+            }
+        });
+    }
+}
+export const unfollow = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingInProgress(true, id))
+        usersAPI.unFollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccess(id))
+                    dispatch(toggleFollowingInProgress(false, id))
+                }
+            })
     }
 }

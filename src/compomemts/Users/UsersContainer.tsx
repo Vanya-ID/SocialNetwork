@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {
-    follow,
+    follow, getUsers,
     initialUsersType,
     setCurrentPage,
     setUsers,
@@ -23,6 +23,7 @@ type mapDispatchToPropsType = {
     setUsersTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingInProgress: (isFollowingInProgress: boolean, userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 }
 
 type mapStateToPropsType = initialUsersType
@@ -32,21 +33,12 @@ export type UserPropsType = mapStateToPropsType & mapDispatchToPropsType
 class UsersAPIComponent extends React.Component<UserPropsType> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items);
-            this.props.setUsersTotalCount(data.totalCount)
-        });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.toggleIsFetching(true)
+        this.props.getUsers(pageNumber, this.props.pageSize)
         this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items);
-        });
     }
 
     render() {
@@ -61,7 +53,6 @@ class UsersAPIComponent extends React.Component<UserPropsType> {
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                     onPageChanged={this.onPageChanged}
-                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                     followingInProgress={this.props.followingInProgress}
                 />}
 
@@ -88,5 +79,5 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setUsersTotalCount,
     toggleIsFetching,
-    toggleFollowingInProgress
+    getUsers
 })(UsersAPIComponent);
