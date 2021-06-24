@@ -5,10 +5,10 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 type mapStateToPropsType = {
     dialogsPage: messagesPageType
-    isAuth: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -21,7 +21,6 @@ export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
@@ -35,6 +34,9 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+let AuthRedirectComponent = WithAuthRedirect(Dialogs)
+
+
+const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default SuperDialogsContainer;
