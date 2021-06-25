@@ -27,11 +27,35 @@ export const usersAPI = {
     },
 
     getAuthMe() {
-        return instance.get('auth/me')
-            .then(res => res.data)
+        console.warn('Low version in get Auth')
+        return authAPI.getAuthMe()
     },
     getUserProfile(userId: string) {
+        console.warn('Low version in get User')
+        return profileAPI.getUserProfile(userId)
+    }
+}
+
+export const profileAPI = {
+    getUserProfile(userId: string) {
         return instance.get('profile/' + userId)
+            .then(res => res.data)
+    },
+    getStatus(userId: string) {
+        return instance.get('profile/status/' + userId)
+            .then(res => res.data)
+    },
+    updateStatus(status: string) {
+        return instance.put('profile/status', {
+            status: status
+        })
+            .then(res => res.data)
+    }
+}
+
+export const authAPI = {
+    getAuthMe() {
+        return instance.get('auth/me')
             .then(res => res.data)
     }
 }

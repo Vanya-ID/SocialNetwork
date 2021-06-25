@@ -23,6 +23,8 @@ export type ProfileInfoType = {
 
 type ProfileInfoPropsType = {
     profile: ProfileInfoType | null
+    status: string
+    updateStatus: (status: string ) => void
 }
 
 
@@ -38,7 +40,10 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         </div>
         <div className={p.avatarBlock}>
             <img src={props.profile?.photos?.large} alt={'Logo'}/>
-            <ProfileStatus status={props.profile?.aboutMe}/>
+            <ProfileStatus
+                updateStatus={props.updateStatus}
+                status={props.status}
+                />
         </div>
     </div>
 }
