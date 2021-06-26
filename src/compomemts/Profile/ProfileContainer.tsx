@@ -55,5 +55,5 @@ export default compose<React.ComponentType>(
         updateStatus
     }),
     withRouter,
-    WithAuthRedirect
+    /*WithAuthRedirect*/
 )(ProfileContainer);
