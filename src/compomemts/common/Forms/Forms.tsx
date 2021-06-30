@@ -1,29 +1,18 @@
 import f from './Forms.module.css'
+import React from "react";
 
-export const Textarea = ({input, meta, ...props}: any) => {
-
+const Element = (Element: string) => ({input, meta, ...props}: any) => {
+    console.log(input)
     const showError = meta.touched && meta.error
 
     return (
-        <div className={f.form + ' ' +  (showError ? f.error : '')}>
-            <div>
-                <textarea {...input} {...props}/>
-            </div>
-            {showError && <span>{meta.error}</span>}
+        <div className={f.form + " " + (showError ? f.error : "")}>
+            <Element {...input} {...props} />
+            {showError && <span> {meta.error} </span>}
         </div>
-    )
-}
+    );
+};
 
-export const Input = ({input, meta, ...props}: any) => {
+export const Textarea = Element('textarea')
 
-    const showError = meta.touched && meta.error
-
-    return (
-        <div className={f.form + ' ' +  (showError ? f.error : '')}>
-            <div>
-                <textarea {...input} {...props}/>
-            </div>
-            {showError && <span>{meta.error}</span>}
-        </div>
-    )
-}
+export const Input = Element('input')
