@@ -1,6 +1,8 @@
 import {ActionsTypes} from "./state";
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {ReduxStoreType} from "./redux-store";
 
 export const setAuthUserData = (userId: number | null,
                                 email: string | null,
@@ -47,12 +49,12 @@ export const getAuthMe = () => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean = false) => {
-    return (dispatch: Dispatch | any ) => {
+export const login = (email: string, password: string, rememberMe: boolean = false): ThunkAction<void, ReduxStoreType, unknown, ActionsTypes> => {
+    return dispatch => {
         authAPI.login(email, password, rememberMe)
             .then(data => {
                 if (data.resultCode === 0) {
-                  dispatch(getAuthMe())
+                    dispatch(getAuthMe())
                 }
             });
     }
