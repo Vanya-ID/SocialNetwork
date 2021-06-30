@@ -6,7 +6,6 @@ import {profileAPI, usersAPI} from "../api/api";
 import {debuglog} from "util";
 
 export const addPostAC = (text: string) => ({type: 'ADD-POST', text} as const)
-export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as const)
 

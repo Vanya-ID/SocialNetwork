@@ -1,4 +1,4 @@
-import {addPostAC,  setStatus, setUserProfile, updateNewPostAC} from "./profilePageReducer";
+import {addPostAC,  setStatus, setUserProfile} from "./profilePageReducer";
 import { sendMessageAC} from "./dialogsPageReducer";
 import {
      followSuccess,
@@ -47,7 +47,6 @@ export type StoreType = {
 }
 
 export type ActionsTypes = ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof sendMessageAC> |
     ReturnType<typeof followSuccess> |
     ReturnType<typeof unfollowSuccess> |

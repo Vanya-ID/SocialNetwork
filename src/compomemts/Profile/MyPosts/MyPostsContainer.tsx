@@ -1,6 +1,6 @@
-import React, {KeyboardEvent, ChangeEvent} from "react";
-import {ActionsTypes, postItemsType} from "../../../redux/state";
-import {addPostAC, updateNewPostAC} from "../../../redux/profilePageReducer";
+import React from "react";
+import {postItemsType} from "../../../redux/state";
+import {addPostAC} from "../../../redux/profilePageReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../../redux/redux-store";
