@@ -2,7 +2,6 @@ import f from './Forms.module.css'
 import React from "react";
 
 const Element = (Element: string) => ({input, meta, ...props}: any) => {
-    console.log(input)
     const showError = meta.touched && meta.error
 
     return (

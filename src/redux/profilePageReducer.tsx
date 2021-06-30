@@ -1,9 +1,7 @@
 import {ActionsTypes, postItemsType} from "./state";
 import {ProfileInfoType} from "../compomemts/Profile/ProfileInfo/ProfileInfo";
 import {Dispatch} from "redux";
-import axios from "axios";
-import {profileAPI, usersAPI} from "../api/api";
-import {debuglog} from "util";
+import {profileAPI} from "../api/api";
 
 export const addPostAC = (text: string) => ({type: 'ADD-POST', text} as const)
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
@@ -57,7 +55,7 @@ export const getUserProfile = (userId: string | undefined) => {
         if (!userId) {
             userId = '2'
         }
-        usersAPI.getUserProfile(userId)
+        profileAPI.getUserProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data))
             });

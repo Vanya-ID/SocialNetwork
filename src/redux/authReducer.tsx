@@ -1,6 +1,6 @@
 import {ActionsTypes} from "./state";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
 
 export const setAuthUserData = (userId: number,
                                 email: string | null,
@@ -38,7 +38,7 @@ export const authReducer = (state: initialUsersType = initialState, action: Acti
 
 export const getAuthMe = () => {
     return (dispatch: Dispatch) => {
-        usersAPI.getAuthMe()
+        authAPI.getAuthMe()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data

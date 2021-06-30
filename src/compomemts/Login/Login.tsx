@@ -19,6 +19,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 type="text"
                 component={Input}
                 validate={[requiresField]}
+                autoComplete={'on'}
             />
         </div>
         <div>
@@ -28,6 +29,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 type="password"
                 component={Input}
                 validate={[requiresField]}
+                autoComplete={'on'}
             />
         </div>
         <div>

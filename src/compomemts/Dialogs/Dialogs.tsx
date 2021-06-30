@@ -1,19 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React from 'react';
 import d from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Messaage/Message';
-import {messagesPageType} from "../../redux/state";
 import {DialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Textarea} from "../common/Forms/Forms";
 import {maxLengthCreator, requiresField} from "../../utils/validatos";
-
-type DialogsType = {
-    dialogsPage: messagesPageType
-    sendMessageOmClick: () => void
-    changeNewMessageText: (newText: string) => void
-}
-
 
 const Dialogs = (props: DialogsPropsType) => {
 

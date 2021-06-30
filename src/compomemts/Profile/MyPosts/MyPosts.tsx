@@ -1,18 +1,10 @@
 import React from "react";
 import p from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {postItemsType} from "../../../redux/state";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiresField} from "../../../utils/validatos";
 import {Textarea} from "../../common/Forms/Forms";
-
-type MyPostsType = {
-    posts: Array<postItemsType>
-    onPostChange: (title: string) => void
-    addPost: () => void
-    newPostText: string
-}
 
 const MyPosts = (props: MyPostsPropsType) => {
     let PostElements = props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)

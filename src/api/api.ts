@@ -24,15 +24,6 @@ export const usersAPI = {
     unFollow(id: number) {
         return instance.delete(`follow/${id}`)
             .then(res => res.data)
-    },
-
-    getAuthMe() {
-        console.warn('Low version in get Auth')
-        return authAPI.getAuthMe()
-    },
-    getUserProfile(userId: string) {
-        console.warn('Low version in get User')
-        return profileAPI.getUserProfile(userId)
     }
 }
 
