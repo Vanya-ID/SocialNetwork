@@ -6,6 +6,7 @@ import {ReduxStoreType} from "../../redux/redux-store";
 import {ProfileInfoType} from "./ProfileInfo/ProfileInfo";
 import {RouteComponentProps, withRouter} from "react-router";
 import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 type mapDispatchToPropsType = {
     getUserProfile: (userId: string | undefined) => void
@@ -54,5 +55,5 @@ export default compose<React.ComponentType>(
         updateStatus
     }),
     withRouter,
-    /*WithAuthRedirect*/
+    WithAuthRedirect
 )(ProfileContainer);

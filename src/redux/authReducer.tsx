@@ -2,22 +2,22 @@ import {ActionsTypes} from "./state";
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 
-export const setAuthUserData = (userId: number,
+export const setAuthUserData = (userId: number | null,
                                 email: string | null,
-                                login: string | null
+                                login: string | null,
+                                isAuth: boolean
 ) =>
-    ({type: 'SET-AUTH-USER-DATA', data: {userId, email, login}} as const)
-
+    ({type: 'SET-AUTH-USER-DATA', data: {userId, email, login, isAuth}} as const)
 
 export type initialUsersType = {
-    userId: number
+    userId: number | null
     email: string | null
     login: string | null
     isAuth: boolean
 }
 
 let initialState: initialUsersType = {
-    userId: 0,
+    userId: null,
     email: null,
     login: null,
     isAuth: false
@@ -29,7 +29,6 @@ export const authReducer = (state: initialUsersType = initialState, action: Acti
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
         default:
             return {...state}
@@ -42,7 +41,29 @@ export const getAuthMe = () => {
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data
-                    dispatch(setAuthUserData(id, email, login))
+                    dispatch(setAuthUserData(id, email, login, true))
+                }
+            });
+    }
+}
+
+export const login = (email: string, password: string, rememberMe: boolean = false) => {
+    return (dispatch: Dispatch | any ) => {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+                if (data.resultCode === 0) {
+                  dispatch(getAuthMe())
+                }
+            });
+    }
+}
+
+export const logout = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logout()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false))
                 }
             });
     }

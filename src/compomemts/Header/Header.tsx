@@ -5,7 +5,11 @@ import h from './Header.module.css'
 type HeaderPropsType = {
     isAuth: boolean
     login: string | null
-    setAuthUserData: (id: number, email: string, login: string) => void
+    setAuthUserData: (id: number | null,
+                      email: string | null,
+                      login: string | null,
+                      isAuth: boolean) => void
+    logout: () => void
 }
 
 const Header = (props: HeaderPropsType) => {
@@ -14,7 +18,13 @@ const Header = (props: HeaderPropsType) => {
              className={h.logo} alt="Logo"/>
         <div className={h.loginBlock}>
             {
-                props.isAuth ? props.login :
+                props.isAuth ?
+                    <div>
+                        {props.login}
+                        <button onClick={props.logout}>Log out</button>
+                    </div>
+
+                    :
                     <NavLink to={'/login'}>Login</NavLink>
             }
 

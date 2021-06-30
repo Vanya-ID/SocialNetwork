@@ -19,7 +19,7 @@ let rootReducer = combineReducers({
     }
 }
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose*/
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+ let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export type ReduxStoreType = ReturnType<typeof rootReducer>
 

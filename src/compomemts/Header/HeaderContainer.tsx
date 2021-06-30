@@ -2,11 +2,15 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
 import {ReduxStoreType} from "../../redux/redux-store";
-import {getAuthMe, setAuthUserData} from "../../redux/authReducer";
+import {getAuthMe, logout, setAuthUserData} from "../../redux/authReducer";
 
 type mapDispatchToPropsType = {
-    setAuthUserData: (id: number, email: string, login: string) => void
+    setAuthUserData: (id: number | null,
+                      email: string | null,
+                      login: string | null,
+                      isAuth: boolean ) => void
     getAuthMe: () => void
+    logout: () => void
 }
 type mapStateToPropsType = {
     isAuth: boolean
@@ -36,5 +40,6 @@ let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
 
 export default connect(mapStateToProps, {
     setAuthUserData,
-    getAuthMe
+    getAuthMe,
+    logout
 })(HeaderContainer);
