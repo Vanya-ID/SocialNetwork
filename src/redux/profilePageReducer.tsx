@@ -5,14 +5,13 @@ import axios from "axios";
 import {profileAPI, usersAPI} from "../api/api";
 import {debuglog} from "util";
 
-export const addPostAC = () => ({type: 'ADD-POST'} as const)
+export const addPostAC = (text: string) => ({type: 'ADD-POST', text} as const)
 export const updateNewPostAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text} as const)
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as const)
 
 type initialStateType = {
     posts: Array<postItemsType>
-    newPostText: string
     profile: ProfileInfoType | null
     status: string
 }
@@ -22,7 +21,6 @@ let initialState: initialStateType = {
         {id: 1, likeCount: 12, message: 'Hello World'},
         {id: 2, likeCount: 12, message: 'Move Itd'}
     ],
-    newPostText: "it-kamasutra",
     profile: null,
     status: ''
 }
@@ -32,20 +30,12 @@ export const profileReducer = (state = initialState, action: ActionsTypes): init
         case 'ADD-POST':
             let newPost: postItemsType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.text,
                 likeCount: 0
             };
             return {
                 ...state,
-                posts: [...state.posts, newPost],
-                newPostText: ''
-            }
-
-        case 'UPDATE-NEW-POST-TEXT':
-            return {
-                ...state,
-                posts: [...state.posts],
-                newPostText: action.newText
+                posts: [...state.posts, newPost]
             }
 
         case 'SET-USER-PROFILE':

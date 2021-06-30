@@ -1,8 +1,9 @@
-import React, {KeyboardEvent, ChangeEvent} from "react";
+import React from "react";
 import p from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {ActionsTypes, postItemsType} from "../../../redux/state";
+import {postItemsType} from "../../../redux/state";
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type MyPostsType = {
     posts: Array<postItemsType>
@@ -14,40 +15,38 @@ type MyPostsType = {
 const MyPosts = (props: MyPostsPropsType) => {
     let PostElements = props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
 
-    // let newPostElement = React.createRef<HTMLTextAreaElement>()
-
-    const addPost = () => {
-        props.addPost()
-    }
-
-    const addPostOnEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter' && e.shiftKey) {
-            addPost()
-        }
-    }
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.changePostBody(text)
+    const addPost = (value: MyPostsFormType) => {
+        props.addPost(value.newPostText)
     }
 
     return (
         <div className={p.postBlovk}>
             <h3> my post</h3>
-            <div>
-                <div>
-                    <textarea
-                        onKeyPress={addPostOnEnter}
-                        onChange={onPostChange}
-                        value={props.newPostText}/>
-                </div>
-                <div>
-                    <button onClick={addPost}>Add Post</button>
-                </div>
-
-            </div>
+            <MyReduxPostsForm onSubmit={addPost}/>
             {PostElements}
         </div>
     )
 };
+
+type MyPostsFormType = {
+    newPostText: string
+}
+
+const MyPostsForm: React.FC<InjectedFormProps<MyPostsFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field placeholder={'Your text'} name={'newPostText'} component={'textarea'}/>
+            </div>
+            <div>
+                <button>Add Post</button>
+            </div>
+        </form>
+    )
+}
+
+const MyReduxPostsForm = reduxForm<MyPostsFormType>({
+    form: 'postsForm'
+})(MyPostsForm)
+
 export default MyPosts;

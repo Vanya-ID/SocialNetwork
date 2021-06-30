@@ -8,12 +8,10 @@ import {Dispatch} from "redux";
 
 type mapStateToPropsType = {
     posts: Array<postItemsType>
-    newPostText: string
 }
 
 type mapDispatchToPropsType = {
-    changePostBody: (text: string) => void
-    addPost: () => void
+    addPost: (text: string) => void
 }
 
 export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -21,16 +19,12 @@ export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
-        changePostBody: (text: string) => {
-            dispatch(updateNewPostAC(text))
-        },
-        addPost: () => {
-            dispatch(addPostAC())
+        addPost: (text) => {
+            dispatch(addPostAC(text))
         }
     }
 }
