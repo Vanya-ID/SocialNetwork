@@ -6,9 +6,10 @@ import {connect} from "react-redux";
 import {login} from "../../redux/authReducer";
 import {Redirect} from "react-router";
 import {ReduxStoreType} from "../../redux/redux-store";
+import f from '../common/Forms/Forms.module.css'
 
 type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
@@ -17,9 +18,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form action="" onSubmit={props.handleSubmit}>
         <div>
             <Field
-                placeholder={"Login"}
-                name={'login'}
-                type="text"
+                placeholder={"email"}
+                name={'email'}
+                type="email"
                 component={Input}
                 validate={[requiresField]}
                 autoComplete={'on'}
@@ -40,6 +41,13 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             remember me
         </div>
         <div>
+            {
+                props.error &&
+                <div className={f.formSummaryError}>
+                    {props.error}
+                </div>
+            }
+
             <button>
                 Log
             </button>
@@ -61,7 +69,7 @@ type LoginPropsType = {
 const Login = (props: LoginPropsType) => {
 
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.login, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe)
     }
 
     if (props.isAuth) {
