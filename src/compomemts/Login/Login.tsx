@@ -1,6 +1,8 @@
 import React from 'react';
 import {reduxForm, InjectedFormProps, Field} from "redux-form";
 import {authAPI} from "../../api/api";
+import {Input} from "../common/Forms/Forms";
+import {requiresField} from "../../utils/validatos";
 
 type FormDataType = {
     login: string
@@ -11,13 +13,25 @@ type FormDataType = {
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form action="" onSubmit={props.handleSubmit}>
         <div>
-            <Field placeholder={"Login"} name={'login'} type="text" component={'input'}/>
+            <Field
+                placeholder={"Login"}
+                name={'login'}
+                type="text"
+                component={Input}
+                validate={[requiresField]}
+            />
         </div>
         <div>
-            <Field placeholder={"password"} name={'password'} type="password" component={'input'}/>
+            <Field
+                placeholder={"password"}
+                name={'password'}
+                type="password"
+                component={Input}
+                validate={[requiresField]}
+            />
         </div>
         <div>
-            <Field type="checkbox" name={'rememberMe'} component={'input'}/>
+            <Field type="checkbox" name={'rememberMe'} component={Input}/>
             remember me
         </div>
         <div>
