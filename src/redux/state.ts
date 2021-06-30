@@ -1,12 +1,12 @@
-import {addPostAC, profileReducer, setStatus, setUserProfile, updateNewPostAC} from "./profilePageReducer";
-import {dialogsReducer, sendMessageAC, updateMessageAC} from "./dialogsPageReducer";
+import {addPostAC,  setStatus, setUserProfile, updateNewPostAC} from "./profilePageReducer";
+import { sendMessageAC} from "./dialogsPageReducer";
 import {
-    follow, followSuccess,
+     followSuccess,
     setCurrentPage,
     setUsers,
     setUsersTotalCount, toggleFollowingInProgress,
     toggleIsFetching,
-    unfollow, unfollowSuccess
+     unfollowSuccess
 } from "./UsersReducer";
 import {setAuthUserData} from "./authReducer";
 
@@ -31,7 +31,6 @@ export type profilePageType = {
 export type messagesPageType = {
     messages: Array<messageItemsType>
     dialogs: Array<dialogItemsType>
-    newMessageText: string
 }
 export type RootStateType = {
     profilePage: profilePageType
@@ -50,7 +49,6 @@ export type StoreType = {
 export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof sendMessageAC> |
-    ReturnType<typeof updateMessageAC> |
     ReturnType<typeof followSuccess> |
     ReturnType<typeof unfollowSuccess> |
     ReturnType<typeof setUsers> |

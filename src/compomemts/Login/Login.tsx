@@ -1,5 +1,6 @@
 import React from 'react';
 import {reduxForm, InjectedFormProps, Field} from "redux-form";
+import {authAPI} from "../../api/api";
 
 type FormDataType = {
     login: string
@@ -34,7 +35,9 @@ const ReduxLoginForm = reduxForm<FormDataType>({
 const Login = () => {
 
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        authAPI.login(formData.login, formData.password).then(data => {
+            console.log(data)
+        })
     }
 
     return <div>
