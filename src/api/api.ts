@@ -1,5 +1,6 @@
 import axios from "axios";
 import {UserType} from "../redux/UsersReducer";
+import {ProfileInfoType} from "../compomemts/Profile/ProfileInfo/ProfileInfo";
 
 
 const instance = axios.create({
@@ -16,7 +17,7 @@ type getUsersType = {
     error: string
 }
 
-type followType = {
+type unOrFollowOrUpdateStatusType = {
     resultCode: ResultCodeEnum
     messages: string[]
     data: {}
@@ -29,19 +30,21 @@ export const usersAPI = {
     },
 
     follow(id: number) {
-        return instance.post<followType>(`follow/${id}`)
+        return instance.post<unOrFollowOrUpdateStatusType>(`follow/${id}`)
             .then(res => res.data)
     },
 
     unFollow(id: number) {
-        return instance.delete<followType>(`follow/${id}`)
+        return instance.delete<unOrFollowOrUpdateStatusType>(`follow/${id}`)
             .then(res => res.data)
     }
 }
 
+type getUserProfileType = ProfileInfoType
+
 export const profileAPI = {
     getUserProfile(userId: string) {
-        return instance.get('profile/' + userId)
+        return instance.get<getUserProfileType>('profile/' + userId)
             .then(res => res.data)
     },
     getStatus(userId: string) {
@@ -49,7 +52,7 @@ export const profileAPI = {
             .then(res => res.data)
     },
     updateStatus(status: string) {
-        return instance.put('profile/status', {
+        return instance.put<unOrFollowOrUpdateStatusType>('profile/status', {
             status: status
         })
             .then(res => res.data)
