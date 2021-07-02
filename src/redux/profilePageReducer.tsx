@@ -1,7 +1,7 @@
 import {ActionsTypes, postItemsType} from "./state";
 import {ProfileInfoType} from "../compomemts/Profile/ProfileInfo/ProfileInfo";
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
+import {profileAPI, ResultCodeEnum} from "../api/api";
 
 export const addPostAC = (text: string) => ({type: 'ADD-POST', text} as const)
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
@@ -75,7 +75,7 @@ export const getStatus = (userId: string) => (dispatch: Dispatch) => {
 export const updateStatus = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeEnum.Success) {
                 dispatch(setStatus(status))
             }
         })

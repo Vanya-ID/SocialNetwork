@@ -1,6 +1,6 @@
 import {ActionsTypes} from "./state";
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
+import {authAPI, ResultCodeEnum} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {AppThunk} from "./redux-store";
 
@@ -40,17 +40,16 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
 export const getAuthMe = () => (dispatch: Dispatch) => {
     authAPI.getAuthMe()
         .then(data => {
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeEnum.Success) {
                 let {id, login, email} = data.data
                 dispatch(setAuthUserData(id, email, login, true))
             }
         });
 }
 
-
 export const login = (email: string, password: string, rememberMe: boolean = false): AppThunk => async dispatch => {
     const data = await authAPI.login(email, password, rememberMe)
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
         dispatch(getAuthMe())
     } else {
         let errorMessage = data.messages.length > 0 ? data.messages[0] : 'Some error'
@@ -58,12 +57,11 @@ export const login = (email: string, password: string, rememberMe: boolean = fal
     }
 }
 
-
 export const logout = () => {
     return (dispatch: Dispatch) => {
         authAPI.logout()
             .then(data => {
-                if (data.resultCode === 0) {
+                if (data.resultCode === ResultCodeEnum.Success) {
                     dispatch(setAuthUserData(null, null, null, false))
                 }
             });

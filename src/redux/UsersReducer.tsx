@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./state";
-import {usersAPI} from "../api/api";
+import {ResultCodeEnum, usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 export const followSuccess = (userId: number) => ({type: 'FOLLOW', userId} as const)
@@ -115,7 +115,7 @@ export const follow = (id: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, id))
         usersAPI.follow(id).then(data => {
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodeEnum.Success) {
                 dispatch(toggleFollowingInProgress(false, id))
                 dispatch(followSuccess(id))
             }
@@ -127,7 +127,7 @@ export const unfollow = (id: number) => {
         dispatch(toggleFollowingInProgress(true, id))
         usersAPI.unFollow(id)
             .then(data => {
-                if (data.resultCode === 0) {
+                if (data.resultCode === ResultCodeEnum.Success) {
                     dispatch(unfollowSuccess(id))
                     dispatch(toggleFollowingInProgress(false, id))
                 }

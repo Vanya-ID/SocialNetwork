@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserType} from "../redux/UsersReducer";
 
 
 const instance = axios.create({
@@ -9,20 +10,31 @@ const instance = axios.create({
     }
 })
 
+type getUsersType = {
+    items: UserType[]
+    totalCount: number
+    error: string
+}
+
+type followType = {
+    resultCode: ResultCodeEnum
+    messages: string[]
+    data: {}
+}
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
 
     follow(id: number) {
-        return instance.post(`follow/${id}`)
+        return instance.post<followType>(`follow/${id}`)
             .then(res => res.data)
     },
 
     unFollow(id: number) {
-        return instance.delete(`follow/${id}`)
+        return instance.delete<followType>(`follow/${id}`)
             .then(res => res.data)
     }
 }
@@ -44,21 +56,39 @@ export const profileAPI = {
     }
 }
 
+export enum ResultCodeEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
+
+type authAPIType<D = {}> = {
+    data: D
+    resultCode: ResultCodeEnum
+    messages: Array<string>
+}
+
 export const authAPI = {
     getAuthMe() {
-        return instance.get('auth/me')
+        return instance.get<authAPIType<{
+            id: number
+            email: string
+            login: string
+        }>>('auth/me')
             .then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post('auth/login', {
+        return instance.post<authAPIType<{
+            userId: number
+        }>>('auth/login', {
             email,
             password,
             rememberMe
         })
             .then(res => res.data)
     },
-    logout(){
-        return instance.delete('auth/login')
+    logout() {
+        return instance.delete<authAPIType>('auth/login')
             .then(res => res.data)
     }
 }
