@@ -3,8 +3,9 @@ import {profileReducer} from "./profilePageReducer";
 import {dialogsReducer} from "./dialogsPageReducer";
 import {usersReducer} from "./UsersReducer";
 import {authReducer} from "./authReducer";
-import thunkMiddleware from "redux-thunk";
-import {reducer as formReducer} from 'redux-form'
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
+import {FormAction, reducer as formReducer} from 'redux-form'
+import {ActionsTypes} from "./state";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -19,8 +20,10 @@ let rootReducer = combineReducers({
     }
 }
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose*/
- let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export type ReduxStoreType = ReturnType<typeof rootReducer>
+
+export type  AppThunk<ReturnType = void> = ThunkAction<ReturnType, ReduxStoreType, unknown, ActionsTypes | FormAction>
 
 export default store;
