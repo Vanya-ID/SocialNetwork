@@ -38,7 +38,7 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
 }
 
 export const getAuthMe = () => (dispatch: Dispatch) => {
-    authAPI.getAuthMe()
+    return authAPI.getAuthMe()
         .then(data => {
             if (data.resultCode === ResultCodeEnum.Success) {
                 let {id, login, email} = data.data

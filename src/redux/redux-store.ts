@@ -6,13 +6,15 @@ import {authReducer} from "./authReducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {FormAction, reducer as formReducer} from 'redux-form'
 import {ActionsTypes} from "./state";
+import {appReducer} from "./appReducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     userPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 })
 declare global {
     interface Window {

@@ -9,6 +9,7 @@ import {
      unfollowSuccess
 } from "./UsersReducer";
 import {setAuthUserData} from "./authReducer";
+import {setInitialized} from "./appReducer";
 
 export type postItemsType = {
     id: number
@@ -57,7 +58,8 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setAuthUserData> |
     ReturnType<typeof toggleFollowingInProgress> |
-    ReturnType<typeof setStatus>
+    ReturnType<typeof setStatus> |
+    ReturnType<typeof setInitialized>
 
 
 /*

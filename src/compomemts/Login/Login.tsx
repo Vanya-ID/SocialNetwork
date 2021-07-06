@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm, InjectedFormProps, Field} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/Forms/Forms";
 import {requiresField} from "../../utils/validatos";
 import {connect} from "react-redux";
@@ -84,7 +84,11 @@ const Login = (props: LoginPropsType) => {
     </div>
 }
 
-const mapStateToProps = (state: ReduxStoreType) => ({
+type mapStateToPropsType = {
+    isAuth: boolean
+}
+
+const mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => ({
     isAuth: state.auth.isAuth
 })
 
