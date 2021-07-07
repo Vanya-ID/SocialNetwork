@@ -22,7 +22,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUserCount,
-    getUsersSelect
+    getUsersRes
 } from "../../redux/users-selectors";
 
 type mapDispatchToPropsType = {
@@ -72,7 +72,7 @@ class UsersAPIComponent extends React.Component<UserPropsType> {
 
 let mapStateToProps = (state: ReduxStoreType): mapStateToPropsType => {
     return {
-        users: getUsersSelect(state),
+        users: getUsersRes(state),
         pageSize: getPageSize(state),
         totalUserCount: getTotalUserCount(state),
         currentPage: getCurrentPage(state),
