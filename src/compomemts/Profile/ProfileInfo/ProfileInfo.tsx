@@ -2,6 +2,7 @@ import React from "react";
 import p from './ProfileInfo.module.css';
 import Preloader from "../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusHocks from "./ProfileStatusHocks";
 
 export type ProfileInfoType = {
     aboutMe: string
@@ -37,7 +38,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
 
         <div className={p.avatarBlock}>
             <img src={props.profile?.photos?.large} alt={'Logo'}/>
-            <ProfileStatus
+            <ProfileStatusHocks
                 updateStatus={props.updateStatus}
                 status={props.status}
                 />
