@@ -8,6 +8,11 @@ type ProfileStatusType = {
 const ProfileStatusHocks = (props: ProfileStatusType) => {
 
     const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status)
+
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.currentTarget.value)
+    }
 
     return (
         <div>
@@ -21,9 +26,15 @@ const ProfileStatusHocks = (props: ProfileStatusType) => {
             }
             {editMode &&
             <div>
-                <input onBlur={() => {
-                    setEditMode(false)
-                }} autoFocus value={''} type="text"/>
+                <input
+                    onChange={onStatusChange}
+                    onBlur={() => {
+                        setEditMode(false)
+                        props.updateStatus(status)
+                    }}
+                    autoFocus
+                    value={status}
+                    type="text"/>
             </div>
             }
         </div>
