@@ -6,21 +6,23 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiresField} from "../../../utils/validatos";
 import {Textarea} from "../../common/Forms/Forms";
 
-const MyPosts = (props: MyPostsPropsType) => {
-    let PostElements = props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
+class MyPosts extends React.Component<MyPostsPropsType> {
+    render() {
+        let PostElements = this.props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
 
-    const addPost = (value: MyPostsFormType) => {
-        props.addPost(value.newPostText)
+        const addPost = (value: MyPostsFormType) => {
+            this.props.addPost(value.newPostText)
+        }
+
+        return (
+            <div className={p.postBlovk}>
+                <h3> my post</h3>
+                <MyReduxPostsForm onSubmit={addPost}/>
+                {PostElements}
+            </div>
+        )
     }
-
-    return (
-        <div className={p.postBlovk}>
-            <h3> my post</h3>
-            <MyReduxPostsForm onSubmit={addPost}/>
-            {PostElements}
-        </div>
-    )
-};
+}
 
 type MyPostsFormType = {
     newPostText: string
