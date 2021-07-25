@@ -1,12 +1,12 @@
-import {addPostAC,  setStatus, setUserProfile} from "./profilePageReducer";
-import { sendMessageAC} from "./dialogsPageReducer";
+import {addPostAC, deletePost, setStatus, setUserProfile} from "./profilePageReducer";
+import {sendMessageAC} from "./dialogsPageReducer";
 import {
-     followSuccess,
+    followSuccess,
     setCurrentPage,
     setUsers,
     setUsersTotalCount, toggleFollowingInProgress,
     toggleIsFetching,
-     unfollowSuccess
+    unfollowSuccess
 } from "./UsersReducer";
 import {setAuthUserData} from "./authReducer";
 import {setInitialized} from "./appReducer";
@@ -60,6 +60,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC> |
     ReturnType<typeof toggleFollowingInProgress> |
     ReturnType<typeof setStatus> |
     ReturnType<typeof setInitialized>
+    | ReturnType<typeof deletePost>
 
 
 /*

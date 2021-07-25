@@ -1,4 +1,4 @@
-import {addPostAC, profileReducer} from "../profilePageReducer";
+import {addPostAC, deletePost, profileReducer} from "../profilePageReducer";
 
 let state = {
     posts: [
@@ -23,4 +23,12 @@ it('text should be correct', () => {
     let newState = profileReducer(state, action)
 
     expect(newState.posts[2].message).toBe('Incubator')
+})
+
+it('correct length after deleting', () => {
+    let action = deletePost(2)
+
+    let newState = profileReducer(state, action)
+
+    expect(newState.posts.length).toBe(1)
 })

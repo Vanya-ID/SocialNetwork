@@ -6,6 +6,7 @@ import {profileAPI, ResultCodeEnum} from "../api/api";
 export const addPostAC = (text: string) => ({type: 'ADD-POST', text} as const)
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as const)
+export const deletePost = (postId: number) => ({type: 'DELETE-POST', postId} as const)
 
 type initialStateType = {
     posts: Array<postItemsType>
@@ -34,17 +35,20 @@ export const profileReducer = (state = initialState, action: ActionsTypes): init
                 ...state,
                 posts: [...state.posts, newPost]
             }
-
         case 'SET-USER-PROFILE':
             return {
                 ...state,
                 profile: action.profile
             }
-
         case 'SET-STATUS':
             return {
                 ...state,
                 status: action.status
+            }
+        case "DELETE-POST":
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.postId)
             }
     }
     return {...state}
@@ -61,7 +65,6 @@ export const getUserProfile = (userId: string | undefined) => {
             });
     }
 }
-
 export const getStatus = (userId: string) => (dispatch: Dispatch) => {
     if (!userId) {
         userId = '2'
@@ -71,7 +74,6 @@ export const getStatus = (userId: string) => (dispatch: Dispatch) => {
             dispatch(setStatus(data))
         })
 }
-
 export const updateStatus = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(data => {
