@@ -2,6 +2,7 @@ import {ActionsTypes, postItemsType} from "./state";
 import {ProfileInfoType} from "../compomemts/Profile/ProfileInfo/ProfileInfo";
 import {Dispatch} from "redux";
 import {profileAPI, ResultCodeEnum} from "../api/api";
+import {AppThunk} from "./redux-store";
 
 export const addPostAC = (text: string) => ({type: 'ADD-POST', text} as const)
 export const setUserProfile = (profile: any) => ({type: 'SET-USER-PROFILE', profile} as const)
@@ -54,31 +55,23 @@ export const profileReducer = (state = initialState, action: ActionsTypes): init
     return {...state}
 }
 
-export const getUserProfile = (userId: string | undefined) => {
-    return (dispatch: Dispatch) => {
-        if (!userId) {
-            userId = '2'
-        }
-        profileAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data))
-            });
-    }
-}
-export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+export const getUserProfile = (userId: string | undefined): AppThunk => async dispatch => {
     if (!userId) {
         userId = '2'
     }
-    profileAPI.getStatus(userId)
-        .then(data => {
-            dispatch(setStatus(data))
-        })
+    let data = await profileAPI.getUserProfile(userId)
+    dispatch(setUserProfile(data))
 }
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(data => {
-            if (data.resultCode === ResultCodeEnum.Success) {
-                dispatch(setStatus(status))
-            }
-        })
+export const getStatus = (userId: string): AppThunk => async dispatch => {
+    if (!userId) {
+        userId = '2'
+    }
+    let data = await profileAPI.getStatus(userId)
+    dispatch(setStatus(data))
+}
+export const updateStatus = (status: string): AppThunk => async dispatch => {
+    let data = await profileAPI.updateStatus(status)
+    if (data.resultCode === ResultCodeEnum.Success) {
+        dispatch(setStatus(status))
+    }
 }
