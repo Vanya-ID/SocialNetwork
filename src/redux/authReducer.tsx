@@ -37,14 +37,12 @@ export const authReducer = (state = initialState, action: ActionsTypes): initial
     }
 }
 
-export const getAuthMe = () => (dispatch: Dispatch) => {
-    return authAPI.getAuthMe()
-        .then(data => {
-            if (data.resultCode === ResultCodeEnum.Success) {
-                let {id, login, email} = data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        });
+export const getAuthMe = () => async (dispatch: Dispatch) => {
+    let data = await authAPI.getAuthMe()
+    if (data.resultCode === ResultCodeEnum.Success) {
+        let {id, login, email} = data.data
+        dispatch(setAuthUserData(id, email, login, true))
+    }
 }
 
 export const login = (email: string, password: string, rememberMe: boolean = false): AppThunk => async dispatch => {
@@ -57,13 +55,9 @@ export const login = (email: string, password: string, rememberMe: boolean = fal
     }
 }
 
-export const logout = () => {
-    return (dispatch: Dispatch) => {
-        authAPI.logout()
-            .then(data => {
-                if (data.resultCode === ResultCodeEnum.Success) {
-                    dispatch(setAuthUserData(null, null, null, false))
-                }
-            });
-    }
+export const logout = (): AppThunk => async dispatch => {
+    let data = await authAPI.logout()
+            if (data.resultCode === ResultCodeEnum.Success) {
+                dispatch(setAuthUserData(null, null, null, false))
+            }
 }
