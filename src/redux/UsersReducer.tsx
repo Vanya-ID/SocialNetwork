@@ -2,6 +2,7 @@ import {ActionsTypes} from "./state";
 import {ResultCodeEnum, usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppThunk} from "./redux-store";
+import {updateObfInArr} from "../utils/obj-helper";
 
 export const followSuccess = (userId: number) => ({type: 'FOLLOW', userId} as const)
 export const unfollowSuccess = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
@@ -56,23 +57,25 @@ export const usersReducer = (state: initialUsersType = initialState, action: Act
         case "FOLLOW":
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: true}
-                    }
-                    return u
-                })
+                users: updateObfInArr(state.users, action.userId, 'id', {followed: true})
+                // users: state.users.map(u => {
+                //     if (u.id === action.userId) {
+                //         return {...u, followed: true}
+                //     }
+                //     return u
+                // })
             }
 
         case "UNFOLLOW":
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                users: updateObfInArr(state.users, action.userId, 'id', {followed: false})
+                // users: state.users.map(u => {
+                //     if (u.id === action.userId) {
+                //         return {...u, followed: false}
+                //     }
+                //     return u
+                // })
             }
 
         case "SET-USER": {
