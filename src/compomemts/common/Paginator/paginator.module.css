@@ -1,0 +1,9 @@
+
+.selectedPage {
+    color: #1bf319;
+    cursor: pointer;
+}
+
+.page {
+    cursor: pointer;
+}
