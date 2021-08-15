@@ -15,22 +15,16 @@ type UsersType = {
 }
 
 let Users = (props: UsersType) => {
-
-    let pagesCount = Math.ceil(500 / props.pageSize)
-
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+    const {onPageChanged, totalUserCount, pageSize, currentPage, follow, unfollow, followingInProgress} = props
 
     return (
         <div>
-            <Paginator onPageChanged={props.onPageChanged} pageSize={props.pageSize}
-                       totalUserCount={props.totalUserCount} currentPage={props.currentPage}/>
+            <Paginator onPageChanged={onPageChanged} pageSize={pageSize}
+                       totalUserCount={totalUserCount} currentPage={currentPage}/>
             {
-                props.users.map((u: UserType) => <User key={u.id} user={u} follow={props.follow}
-                                                       unfollow={props.unfollow}
-                                                       followingInProgress={props.followingInProgress}
+                props.users.map((u: UserType) => <User key={u.id} user={u} follow={follow}
+                                                       unfollow={unfollow}
+                                                       followingInProgress={followingInProgress}
                     />
                 )
             }

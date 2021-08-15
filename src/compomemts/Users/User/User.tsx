@@ -11,28 +11,27 @@ type SeparateUser = {
 }
 
 let User = ({user, followingInProgress, unfollow, follow}: SeparateUser) => {
-    let u = user
 
     return (
         <div>
                 <span>
                     <div>
-                        <NavLink to={'/profile/' + u.id}>
-                        <img className={um.img} src={u.photos.small === null ?
+                        <NavLink to={'/profile/' + user.id}>
+                        <img className={um.img} src={user.photos.small === null ?
                             'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png'
-                            : u.photos.small} alt=""/>
+                            : user.photos.small} alt=""/>
                             </NavLink>
                     </div>
                     <div>
-                        {u.followed ?
-                            <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-                                unfollow(u.id)
+                        {user.followed ?
+                            <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                                unfollow(user.id)
                             }}>
                                 UnFollow
                             </button>
                             :
-                            <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-                                follow(u.id)
+                            <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                                follow(user.id)
                             }}>
                                 Follow
                             </button>
@@ -42,10 +41,10 @@ let User = ({user, followingInProgress, unfollow, follow}: SeparateUser) => {
             <span>
                         <span>
                             <div>
-                              {u.name}
+                              {user.name}
                             </div>
                             <div>
-                                {u.status}
+                                {user.status}
                             </div>
                         </span>
                         <span>

@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.css';
-import Navbar from "./compomemts/Navbar/Navbar";
-import DialogsContainer from "./compomemts/Dialogs/DialogsContainer";
-import UsersContainer from "./compomemts/Users/UsersContainer";
+import Navbar from "../compomemts/Navbar/Navbar";
+import DialogsContainer from "../compomemts/Dialogs/DialogsContainer";
+import UsersContainer from "../compomemts/Users/UsersContainer";
 import {BrowserRouter, Route} from "react-router-dom";
-import ProfileContainer from "./compomemts/Profile/ProfileContainer";
-import HeaderContainer from "./compomemts/Header/HeaderContainer";
-import Login from "./compomemts/Login/Login";
+import ProfileContainer from "../compomemts/Profile/ProfileContainer";
+import HeaderContainer from "../compomemts/Header/HeaderContainer";
+import Login from "../compomemts/Login/Login";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router";
-import {setInitializedSuccess} from "./redux/appReducer";
-import {ReduxStoreType} from "./redux/redux-store";
-import Preloader from "./compomemts/common/preloader/Preloader";
+import {setInitializedSuccess} from "../redux/appReducer";
+import {ReduxStoreType} from "../redux/redux-store";
+import Preloader from "../compomemts/common/preloader/Preloader";
 
 type mapDispatchToPropsType = {
     setInitializedSuccess: () => void

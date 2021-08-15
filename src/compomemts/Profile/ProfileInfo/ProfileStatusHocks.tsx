@@ -6,13 +6,13 @@ type ProfileStatusType = {
 }
 
 const ProfileStatusHocks = (props: ProfileStatusType) => {
-
+const {status, updateStatus} = props
     const [editMode, setEditMode] = useState(false)
-    const [status, setStatus] = useState(props.status)
+    const [stateStatus, setStatus] = useState(props.status)
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setStatus(status)
+    }, [status])
 
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
@@ -25,7 +25,7 @@ const ProfileStatusHocks = (props: ProfileStatusType) => {
                     <span onDoubleClick={() => {
                         setEditMode(true)
                     }
-                    }>{props.status || '-----'}</span>
+                    }>{stateStatus || '-----'}</span>
             </div>
             }
             {editMode &&
@@ -34,10 +34,10 @@ const ProfileStatusHocks = (props: ProfileStatusType) => {
                     onChange={onStatusChange}
                     onBlur={() => {
                         setEditMode(false)
-                        props.updateStatus(status)
+                        updateStatus(stateStatus)
                     }}
                     autoFocus
-                    value={status}
+                    value={stateStatus}
                     type="text"/>
             </div>
             }

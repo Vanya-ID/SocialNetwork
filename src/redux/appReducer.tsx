@@ -22,9 +22,7 @@ export const appReducer = (state = initialState, action: ActionsTypes): initialS
     }
 }
 
-export const setInitializedSuccess = (): ThunkAction<void, initialStateType, unknown, ActionsTypes> => (dispatch) => {
-    let pr = dispatch(getAuthMe())
-    pr.then(() => {
-        dispatch(setInitialized())
-    })
+export const setInitializedSuccess = (): ThunkAction<void, initialStateType, unknown, ActionsTypes> => async dispatch => {
+    await dispatch(getAuthMe());
+    dispatch(setInitialized())
 }

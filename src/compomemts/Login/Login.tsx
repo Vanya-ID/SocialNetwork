@@ -14,7 +14,8 @@ type FormDataType = {
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    return <form action="" onSubmit={props.handleSubmit}>
+    const {handleSubmit, error} = props
+    return <form action="" onSubmit={handleSubmit}>
         {createField('email', 'email', 'email', true)}
         {createField('password', 'password', 'password', true)}
         <div>
@@ -23,9 +24,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         </div>
         <div>
             {
-                props.error &&
+                error &&
                 <div className={f.formSummaryError}>
-                    {props.error}
+                    {error}
                 </div>
             }
 
@@ -48,12 +49,12 @@ type LoginPropsType = {
 }
 
 const Login = (props: LoginPropsType) => {
-
+    const {login, isAuth} = props
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        login(formData.email, formData.password, formData.rememberMe)
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
 

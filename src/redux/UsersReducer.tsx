@@ -99,7 +99,9 @@ export const usersReducer = (state: initialUsersType = initialState, action: Act
     }
 }
 
-const followUnfollowFlow = async (dispatch: Dispatch, id: number, action: any, apiMethod: any) => {
+const followUnfollowFlow = async (dispatch: Dispatch, id: number,
+                                  action: typeof followSuccess | typeof unfollowSuccess,
+                                  apiMethod: any) => {
     dispatch(toggleFollowingInProgress(true, id))
     let data = await apiMethod(id);
     if (data.resultCode === ResultCodeEnum.Success) {

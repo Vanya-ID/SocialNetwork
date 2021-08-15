@@ -8,15 +8,16 @@ import {Textarea} from "../common/Forms/Forms";
 import {maxLengthCreator, requiresField} from "../../utils/validators/validatos";
 
 const Dialogs = (props: DialogsPropsType) => {
+    const {dialogsPage, sendMessageOnClick} = props
 
-    let DialogElements = props.dialogsPage.dialogs.map((d, i) =>
+    let DialogElements = dialogsPage.dialogs.map((d, i) =>
         <DialogItem key={i} name={d.name} id={d.id}/>)
 
-    let MessageElements = props.dialogsPage.messages.map((m, i) =>
+    let MessageElements = dialogsPage.messages.map((m, i) =>
         <Message key={i} message={m.message}/>)
 
     const addNewMessage = (values: AddMessageFormType) => {
-        props.sendMessageOnClick(values.newMessageBody)
+        sendMessageOnClick(values.newMessageBody)
     }
 
     return (

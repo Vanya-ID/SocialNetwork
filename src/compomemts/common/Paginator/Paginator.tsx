@@ -1,16 +1,18 @@
 import React from "react";
 import pg from './paginator.module.css';
 
-type Paginator = {
+type PaginatorPropsType = {
     onPageChanged: (pageNumber: number) => void
     pageSize: number
     totalUserCount: number
     currentPage: number
 }
 
-let Paginator = (props: Paginator) => {
+const Paginator = (props: PaginatorPropsType) => {
+    const {pageSize, currentPage, onPageChanged} = props
 
-    let pagesCount = Math.ceil(500 / props.pageSize)
+    //                      totalUserCount
+    let pagesCount = Math.ceil(500 / pageSize)
 
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -20,8 +22,8 @@ let Paginator = (props: Paginator) => {
     return (
         <div>
             {pages.map((p, i) => {
-                return <span key={i} className={props.currentPage === p ? pg.selectedPage : pg.page}
-                             onClick={() => (props.onPageChanged(p))}
+                return <span key={i} className={currentPage === p ? pg.selectedPage : pg.page}
+                             onClick={() => (onPageChanged(p))}
                 >{p}</span>
             })}
         </div>

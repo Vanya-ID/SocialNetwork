@@ -7,16 +7,18 @@ import {maxLengthCreator, requiresField} from "../../../utils/validators/validat
 import {Textarea} from "../../common/Forms/Forms";
 
 const MyPosts = React.memo((props: MyPostsPropsType) => {
-    let PostElements = props.posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
+    const {posts, addPost} = props
 
-    const addPost = (value: MyPostsFormType) => {
-        props.addPost(value.newPostText)
+    let PostElements = posts.map(p => <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
+
+    const addPostOnSubmit = (value: MyPostsFormType) => {
+        addPost(value.newPostText)
     }
 
     return (
         <div className={p.postBlovk}>
             <h3> my post</h3>
-            <MyReduxPostsForm onSubmit={addPost}/>
+            <MyReduxPostsForm onSubmit={addPostOnSubmit}/>
             {PostElements}
         </div>
     )

@@ -8,18 +8,20 @@ type DialogItemType = {
 }
 
 
-const DialogItem = (props:DialogItemType) => {
-    let path = "/dialogs/" +props.id;
+const DialogItem = (props: DialogItemType) => {
+    const {id, name} = props
+
+    let path = "/dialogs/" + id;
     return (
-        <div  className={d.dialog}>
-            <NavLink  className={d.dialogElement} to={path}>
-                {props.name}
+        <div className={d.dialog}>
+            <NavLink className={d.dialogElement} to={path}>
+                {name}
             </NavLink>
         </div>
     )
 };
 
-export  default  DialogItem;
+export default DialogItem;
 
 
 

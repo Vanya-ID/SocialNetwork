@@ -1,7 +1,6 @@
 import React from "react";
 import p from './ProfileInfo.module.css';
 import Preloader from "../../common/preloader/Preloader";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusHocks from "./ProfileStatusHocks";
 
 export type ProfileInfoType = {
@@ -25,11 +24,12 @@ export type ProfileInfoType = {
 type ProfileInfoPropsType = {
     profile: ProfileInfoType | null
     status: string
-    updateStatus: (status: string ) => void
+    updateStatus: (status: string) => void
 }
 
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
+    const {profile, status, updateStatus} = props
 
     if (!props.profile) {
         return <Preloader/>
@@ -37,11 +37,11 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     return <div>
 
         <div className={p.avatarBlock}>
-            <img src={props.profile?.photos?.large} alt={'Logo'}/>
+            <img src={profile?.photos?.large} alt={'Logo'}/>
             <ProfileStatusHocks
-                updateStatus={props.updateStatus}
-                status={props.status}
-                />
+                updateStatus={updateStatus}
+                status={status}
+            />
         </div>
     </div>
 }

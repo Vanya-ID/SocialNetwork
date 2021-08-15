@@ -1,7 +1,7 @@
-import preloader from "../../../assets/images/__Iphone-spinner-1.gif";
+import preloader from "../../../assets/images/preloader.gif";
 import React from "react";
 
-let Preloader = (props: any) => {
+let Preloader = () => {
     return (
         <img src={preloader} alt={'Preloader'}/>
     )
