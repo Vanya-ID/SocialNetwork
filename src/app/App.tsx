@@ -7,11 +7,11 @@ import {BrowserRouter, Route} from "react-router-dom";
 import ProfileContainer from "../compomemts/Profile/ProfileContainer";
 import HeaderContainer from "../compomemts/Header/HeaderContainer";
 import Login from "../compomemts/Login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {withRouter} from "react-router";
 import {setInitializedSuccess} from "../redux/appReducer";
-import {ReduxStoreType} from "../redux/redux-store";
+import store, {ReduxStoreType} from "../redux/redux-store";
 import Preloader from "../compomemts/common/preloader/Preloader";
 
 type mapDispatchToPropsType = {
@@ -58,9 +58,21 @@ const mapStateToProps = (state: ReduxStoreType) => ({
     initialized: state.app.initialized
 })
 
-export default compose<React.ComponentType>(
+
+let AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {
         setInitializedSuccess
     })
 )(App);
+
+const MainApp = (props: any) => {
+   return  <React.StrictMode>
+       <BrowserRouter>
+           <Provider store={store}>
+               <AppContainer/>
+           </Provider>
+       </BrowserRouter>
+   </React.StrictMode>
+}
+export default MainApp
